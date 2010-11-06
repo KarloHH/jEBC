@@ -19,7 +19,7 @@ public class ReadonlyCache<TKey, TVal> implements Cache<TKey, TVal> {
         @Override
         public void receive(TKey message) {
             if (cache.containsKey(message)) {
-                DeliverValue().transmit(cache.get(message));
+                ReturnValue().transmit(cache.get(message));
             } else {
                 lastKey = message;
                 RequestValue().transmit(message);
@@ -31,7 +31,7 @@ public class ReadonlyCache<TKey, TVal> implements Cache<TKey, TVal> {
         @Override
         public void receive(TVal message) {
             cache.put(lastKey, message);
-            DeliverValue().transmit(message);
+            ReturnValue().transmit(message);
         }
     };
 
@@ -51,7 +51,7 @@ public class ReadonlyCache<TKey, TVal> implements Cache<TKey, TVal> {
     }
 
     @Override
-    public OutPin<TVal> DeliverValue() {
+    public OutPin<TVal> ReturnValue() {
         return deliverPin;
     }
 

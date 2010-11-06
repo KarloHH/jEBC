@@ -20,7 +20,7 @@ public class EchoTool {
         client.outpin.connect(cache.GetValue());
         cache.RequestValue().connect(upcase.Request());
         upcase.Result().connect(cache.ReceiveValue());
-        cache.DeliverValue().connect(echo.Echo());
+        cache.ReturnValue().connect(echo.Echo());
         client.Run();
     }
 

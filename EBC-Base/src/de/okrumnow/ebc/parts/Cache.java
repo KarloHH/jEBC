@@ -10,5 +10,5 @@ public interface Cache<TKey, TVal> {
 
     InPin<TVal> ReceiveValue();
 
-    OutPin<TVal> DeliverValue();
+    OutPin<TVal> ReturnValue();
 }
