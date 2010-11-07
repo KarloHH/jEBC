@@ -5,26 +5,20 @@ import de.okrumnow.ebc.OutPin;
 
 public class ExtensionOutPin<T> implements OutPin<T> {
 
-    private InPin<T> inPin;
+    private OutPin<T> outPin;
 
     public ExtensionOutPin(OutPin<T> pin) {
-        pin.connect(new InPin<T>() {
-
-            @Override
-            public void receive(T message) {
-                transmit(message);
-            }
-        });
+        outPin=pin;
     }
 
     @Override
     public void connect(InPin<T> pin) {
-        inPin = pin;
+        outPin.connect(pin);
     }
 
     @Override
     public void transmit(T message) {
-        inPin.receive(message);
+        outPin.transmit(message);
     }
 
 }
