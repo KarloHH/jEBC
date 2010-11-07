@@ -4,7 +4,7 @@ import de.okrumnow.ebc.InPin;
 import de.okrumnow.ebc.OutPin;
 import de.okrumnow.ebc.impl.SingleOutPin;
 
-public class UpcaseFilterImpl implements UpcaseFilter {
+public class ConvertToUpperCaseImpl implements ConvertToUpperCase {
 
     private InPin<String> requestPin = new InPin<String>() {
 

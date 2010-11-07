@@ -16,7 +16,7 @@ public class UpcaseBoard {
 
     public UpcaseBoard() {
         // creating the parts
-        UpcaseFilter upcase = new UpcaseFilterImpl();
+        ConvertToUpperCase upcase = new ConvertToUpperCaseImpl();
         Cache<String, String> cache = new ReadonlyCache<String, String>();
 
         // extend the open pins to the outside
