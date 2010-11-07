@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import de.okrumnow.ebc.InPin;
-import de.okrumnow.ebc.impl.SingleOutPin;
+import de.okrumnow.ebc.impl.ServiceOutPinImpl;
 
 public class SimpleEchoWindow extends JFrame {
 
@@ -30,7 +30,7 @@ public class SimpleEchoWindow extends JFrame {
     private JLabel lblAnswer;
 
     private UpcaseBoard board = new UpcaseBoard();
-    private SingleOutPin<String> outPin;
+    private ServiceOutPinImpl<String, String> outPin;
 
     /**
      * Launch the application.
@@ -94,11 +94,7 @@ public class SimpleEchoWindow extends JFrame {
         txtInput.setColumns(10);
 
         JButton btnOk = new JButton("OK");
-        btnOk.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                outPin.transmit(txtInput.getText());
-            }
-        });
+        btnOk.addActionListener(getUpcaseServiceListener());
         GridBagConstraints gbc_btnOk = new GridBagConstraints();
         gbc_btnOk.insets = new Insets(0, 0, 5, 0);
         gbc_btnOk.gridx = 3;
@@ -123,17 +119,23 @@ public class SimpleEchoWindow extends JFrame {
         panel.add(lblAnswer, gbc_lblAnswer);
     }
 
-    private void setup() {
-        // connect the board
-        InPin<String> inPin = new InPin<String>() {
+    private ActionListener getUpcaseServiceListener() {
+        return new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                outPin.transmit(txtInput.getText(), new InPin<String>() {
 
-            @Override
-            public void receive(String message) {
-                lblAnswer.setText(message);
+                    @Override
+                    public void receive(String message) {
+                        lblAnswer.setText(message);
+                    }
+                });
             }
         };
-        outPin = new SingleOutPin<String>();
+    }
+
+    private void setup() {
+        // connect the board
+        outPin = new ServiceOutPinImpl<String, String>();
         outPin.connect(board.Request());
-        board.Response().connect(inPin);
     }
 }

@@ -1,12 +1,9 @@
 package de.okrumnow.ebc.proof;
 
-import de.okrumnow.ebc.InPin;
-import de.okrumnow.ebc.OutPin;
+import de.okrumnow.ebc.ServiceInPin;
 
 public interface UpcaseService {
 
-    public InPin<String> Request();
-
-    public OutPin<String> Result();
+    public ServiceInPin<String, String> Request();
 
 }

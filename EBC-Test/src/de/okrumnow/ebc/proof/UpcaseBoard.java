@@ -1,22 +1,15 @@
 package de.okrumnow.ebc.proof;
 
-import de.okrumnow.ebc.InPin;
-import de.okrumnow.ebc.OutPin;
-import de.okrumnow.ebc.impl.ExtensionInPin;
-import de.okrumnow.ebc.impl.ExtensionOutPin;
+import de.okrumnow.ebc.ServiceInPin;
+import de.okrumnow.ebc.impl.ExtensionServiceInPin;
 import de.okrumnow.ebc.parts.Cache;
 import de.okrumnow.ebc.parts.ReadonlyCache;
 
 public class UpcaseBoard {
 
-    private InPin<String> request;
-    private OutPin<String> response;
+    private ServiceInPin<String, String> request;
 
-    public OutPin<String> Response() {
-        return response;
-    }
-
-    public InPin<String> Request() {
+    public ServiceInPin<String, String> Request() {
         return request;
     }
 
@@ -26,12 +19,9 @@ public class UpcaseBoard {
         Cache<String, String> cache = new ReadonlyCache<String, String>();
 
         // extend the open pins to the outside
-        request = new ExtensionInPin<String>(cache.GetValue());
-        response = new ExtensionOutPin<String>(cache.ReturnValue());
+        request = new ExtensionServiceInPin<String, String>(cache.Get());
 
         // plumbing the echo board
-        cache.RequestValue().connect(upcase.Request());
-        upcase.Result().connect(cache.ReceiveValue());
-
+        cache.Request().connect(upcase.Request());
     }
 }

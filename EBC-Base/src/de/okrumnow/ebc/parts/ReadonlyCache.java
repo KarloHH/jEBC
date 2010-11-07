@@ -4,55 +4,41 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.okrumnow.ebc.InPin;
-import de.okrumnow.ebc.OutPin;
-import de.okrumnow.ebc.impl.SingleOutPin;
+import de.okrumnow.ebc.ServiceInPin;
+import de.okrumnow.ebc.ServiceOutPin;
+import de.okrumnow.ebc.impl.ServiceOutPinImpl;
 
 public class ReadonlyCache<TKey, TVal> implements Cache<TKey, TVal> {
 
     private Map<TKey, TVal> cache = new HashMap<TKey, TVal>();
-    private TKey lastKey;
-    private OutPin<TKey> requestPin = new SingleOutPin<TKey>();
-    private OutPin<TVal> deliverPin = new SingleOutPin<TVal>();
-    private InPin<TKey> getValuePin = new InPin<TKey>() {
-
+    private ServiceInPin<TKey, TVal> getPin = new ServiceInPin<TKey, TVal>() {
 
         @Override
-        public void receive(TKey message) {
+        public void receive(final TKey message, final InPin<TVal> response) {
             if (cache.containsKey(message)) {
-                ReturnValue().transmit(cache.get(message));
+                response.receive(cache.get(message)); 
             } else {
-                lastKey = message;
-                RequestValue().transmit(message);
+                requestPin.transmit(message, new InPin<TVal>() {
+
+                    @Override
+                    public void receive(TVal result) {
+                        cache.put(message, result);
+                        response.receive(result);
+                    }
+                });
             }
         }
     };
-    private InPin<TVal> receivePin = new InPin<TVal>() {
-
-        @Override
-        public void receive(TVal message) {
-            cache.put(lastKey, message);
-            ReturnValue().transmit(message);
-        }
-    };
+    private ServiceOutPin<TKey, TVal> requestPin = new ServiceOutPinImpl<TKey, TVal>();
 
     @Override
-    public InPin<TKey> GetValue() {
-        return getValuePin;
+    public ServiceInPin<TKey, TVal> Get() {
+        return getPin;
     }
 
     @Override
-    public OutPin<TKey> RequestValue() {
+    public ServiceOutPin<TKey, TVal> Request() {
         return requestPin;
-    }
-
-    @Override
-    public InPin<TVal> ReceiveValue() {
-        return receivePin;
-    }
-
-    @Override
-    public OutPin<TVal> ReturnValue() {
-        return deliverPin;
     }
 
 }

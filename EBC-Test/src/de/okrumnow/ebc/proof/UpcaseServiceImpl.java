@@ -1,28 +1,22 @@
 package de.okrumnow.ebc.proof;
 
 import de.okrumnow.ebc.InPin;
-import de.okrumnow.ebc.OutPin;
-import de.okrumnow.ebc.impl.SingleOutPin;
+import de.okrumnow.ebc.ServiceInPin;
 
 public class UpcaseServiceImpl implements UpcaseService {
 
-    private InPin<String> requestPin = new InPin<String>() {
+    private ServiceInPin<String, String> requestPin = new ServiceInPin<String, String>() {
 
         @Override
-        public void receive(String message) {
-            resultPin.transmit(message.toUpperCase());
+        public void receive(String message, InPin<String> response) {
+            response.receive(message.toUpperCase());
         }
+
     };
-    private OutPin<String> resultPin = new SingleOutPin<String>();
 
     @Override
-    public InPin<String> Request() {
+    public ServiceInPin<String, String> Request() {
         return requestPin;
-    }
-
-    @Override
-    public OutPin<String> Result() {
-        return resultPin;
     }
 
 }
