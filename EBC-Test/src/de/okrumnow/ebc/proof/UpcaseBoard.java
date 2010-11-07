@@ -15,13 +15,13 @@ public class UpcaseBoard {
 
     public UpcaseBoard() {
         // creating the parts
-        UpcaseService upcase = new UpcaseServiceImpl();
+        UpcaseFilter upcase = new UpcaseFilterImpl();
         Cache<String, String> cache = new ReadonlyCache<String, String>();
 
         // extend the open pins to the outside
         request = new ExtensionServiceInPin<String, String>(cache.Get());
 
         // plumbing the echo board
-        cache.Request().connect(upcase.Request());
+        cache.Request().connect(new JoinServicePin<String, String>(upcase.Request(), upcase.Response()));
     }
 }
