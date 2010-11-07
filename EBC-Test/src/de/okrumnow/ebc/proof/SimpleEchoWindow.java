@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import de.okrumnow.ebc.InPin;
-import de.okrumnow.ebc.impl.ServiceOutPinImpl;
+import de.okrumnow.ebc.impl.OutChannelImpl;
 
 public class SimpleEchoWindow extends JFrame {
 
@@ -30,7 +30,7 @@ public class SimpleEchoWindow extends JFrame {
     private JLabel lblAnswer;
 
     private UpcaseBoard board = new UpcaseBoard();
-    private ServiceOutPinImpl<String, String> outPin;
+    private OutChannelImpl<String, String> outPin;
 
     /**
      * Launch the application.
@@ -135,7 +135,7 @@ public class SimpleEchoWindow extends JFrame {
 
     private void setup() {
         // connect the board
-        outPin = new ServiceOutPinImpl<String, String>();
+        outPin = new OutChannelImpl<String, String>();
         outPin.connect(board.Request());
     }
 }

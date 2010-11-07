@@ -1,12 +1,12 @@
 package de.okrumnow.ebc.parts;
 
-import de.okrumnow.ebc.ServiceInPin;
-import de.okrumnow.ebc.ServiceOutPin;
+import de.okrumnow.ebc.InChannel;
+import de.okrumnow.ebc.OutChannel;
 
 
 public interface Cache<TKey, TVal> {
 
-    ServiceInPin<TKey, TVal> Get();
+    InChannel<TKey, TVal> Get();
     
-    ServiceOutPin<TKey, TVal> Request();
+    OutChannel<TKey, TVal> Request();
 }

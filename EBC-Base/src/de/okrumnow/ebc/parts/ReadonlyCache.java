@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.okrumnow.ebc.InPin;
-import de.okrumnow.ebc.ServiceInPin;
-import de.okrumnow.ebc.ServiceOutPin;
-import de.okrumnow.ebc.impl.ServiceOutPinImpl;
+import de.okrumnow.ebc.InChannel;
+import de.okrumnow.ebc.OutChannel;
+import de.okrumnow.ebc.impl.OutChannelImpl;
 
 public class ReadonlyCache<TKey, TVal> implements Cache<TKey, TVal> {
 
     private Map<TKey, TVal> cache = new HashMap<TKey, TVal>();
-    private ServiceInPin<TKey, TVal> getPin = new ServiceInPin<TKey, TVal>() {
+    private InChannel<TKey, TVal> getPin = new InChannel<TKey, TVal>() {
 
         @Override
         public void receive(final TKey message, final InPin<TVal> response) {
@@ -29,15 +29,15 @@ public class ReadonlyCache<TKey, TVal> implements Cache<TKey, TVal> {
             }
         }
     };
-    private ServiceOutPin<TKey, TVal> requestPin = new ServiceOutPinImpl<TKey, TVal>();
+    private OutChannel<TKey, TVal> requestPin = new OutChannelImpl<TKey, TVal>();
 
     @Override
-    public ServiceInPin<TKey, TVal> Get() {
+    public InChannel<TKey, TVal> Get() {
         return getPin;
     }
 
     @Override
-    public ServiceOutPin<TKey, TVal> Request() {
+    public OutChannel<TKey, TVal> Request() {
         return requestPin;
     }
 
