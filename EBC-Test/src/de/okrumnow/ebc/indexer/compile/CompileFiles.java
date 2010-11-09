@@ -35,12 +35,12 @@ public class CompileFiles extends AbstractBoard {
         split = new AbstractSplitter<IndexerData, String, String>() {
 
             @Override
-            protected String getSplit1(IndexerData message) {
+            protected String getPart1(IndexerData message) {
                 return message.SourceDir;
             }
 
             @Override
-            protected String getSplit2(IndexerData message) {
+            protected String getPart2(IndexerData message) {
                 return message.IndexFilename;
             }
         };
