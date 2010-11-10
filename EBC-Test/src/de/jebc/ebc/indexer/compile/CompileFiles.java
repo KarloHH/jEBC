@@ -7,8 +7,6 @@ import de.jebc.ebc.OutPin;
 import de.jebc.ebc.Splitter;
 import de.jebc.ebc.impl.AbstractBoard;
 import de.jebc.ebc.impl.AbstractSplitter;
-import de.jebc.ebc.impl.ExtensionInPin;
-import de.jebc.ebc.impl.ExtensionOutPin;
 import de.jebc.ebc.impl.SingleOutPin;
 import de.jebc.ebc.indexer.IndexerData;
 
@@ -32,7 +30,16 @@ public class CompileFiles extends AbstractBoard {
     }
 
     public CompileFiles() {
-        split = new AbstractSplitter<IndexerData, String, String>() {
+        split = createSplitter();
+        CrawlDirectory crawler = new CrawlDirectory();
+
+        in = extend(split.In());
+        indexFilename = extend(split.Out2());
+        connect(split.Out1(), with(crawler.In()));
+    }
+
+    private AbstractSplitter<IndexerData, String, String> createSplitter() {
+        return new AbstractSplitter<IndexerData, String, String>() {
 
             @Override
             protected String getPart1(IndexerData message) {
@@ -44,14 +51,6 @@ public class CompileFiles extends AbstractBoard {
                 return message.IndexFilename;
             }
         };
-        in = new ExtensionInPin<IndexerData>(split.In());
-        indexFilename = new ExtensionOutPin<String>(split.Out2());
-        CrawlDirectory crawler = new CrawlDirectory();
-        connect(split.Out1(), with(crawler.In()));
-    }
-
-    private <T> void connect(OutPin<T> outPin, InPin<T> inPin) {
-        outPin.connect(inPin);
     }
 
 }

@@ -27,4 +27,16 @@ public abstract class AbstractBoard {
         return new ExtensionInChannel<T1, T2>(inChannel);
     }
 
+    protected <T> InPin<T> extend(InPin<T> in2) {
+        return new ExtensionInPin<T>(in2);
+    }
+
+    protected <T> OutPin<T> extend(OutPin<T> out2) {
+        return new ExtensionOutPin<T>(out2);
+    }
+
+    protected <T> void connect(OutPin<T> outPin, InPin<T> inPin) {
+        outPin.connect(inPin);
+    }
+
 }
