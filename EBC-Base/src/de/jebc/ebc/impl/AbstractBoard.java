@@ -1,6 +1,6 @@
 package de.jebc.ebc.impl;
 
-import de.jebc.ebc.ChannelMonitor;
+import de.jebc.ebc.ChannelFilter;
 import de.jebc.ebc.InChannel;
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutChannel;
@@ -40,9 +40,9 @@ public abstract class AbstractBoard {
         outPin.connect(inPin);
     }
 
-    protected <T1, T2> void monitor(OutChannel<T1, T2> output, InChannel<T1, T2> input, ChannelMonitor<T1, T2> monitor) {
-        connect(output, monitor.MonitorIn());
-        connect(monitor.MonitorOut(), input);
+    protected <T1, T2> void monitor(OutChannel<T1, T2> output, InChannel<T1, T2> input, ChannelFilter<T1, T2> monitor) {
+        connect(output, monitor.in());
+        connect(monitor.out(), input);
     }
     
 }

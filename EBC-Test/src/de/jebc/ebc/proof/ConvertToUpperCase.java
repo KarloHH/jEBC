@@ -5,7 +5,7 @@ import de.jebc.ebc.OutPin;
 
 public interface ConvertToUpperCase {
 
-    public InPin<String> Request();
-    public OutPin<String> Response();
+    public InPin<String> request();
+    public OutPin<String> response();
 
 }

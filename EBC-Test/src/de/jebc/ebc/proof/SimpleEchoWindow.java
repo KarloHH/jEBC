@@ -136,6 +136,6 @@ public class SimpleEchoWindow extends JFrame {
     private void setup() {
         // connect the board
         outPin = new OutChannelImpl<String, String>();
-        outPin.connect(board.Request());
+        outPin.connect(board.request());
     }
 }

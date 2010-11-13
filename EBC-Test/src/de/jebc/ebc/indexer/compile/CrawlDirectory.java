@@ -22,11 +22,11 @@ public class CrawlDirectory {
         }
     };
 
-    public OutPin<Enumeration<String>> Out() {
+    public OutPin<Enumeration<String>> out() {
         return out;
     }
 
-    public InPin<String> In() {
+    public InPin<String> in() {
         return in;
     }
 

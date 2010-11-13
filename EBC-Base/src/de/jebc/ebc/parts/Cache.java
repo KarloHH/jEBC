@@ -6,7 +6,7 @@ import de.jebc.ebc.OutChannel;
 
 public interface Cache<TKey, TVal> {
 
-    InChannel<TKey, TVal> Get();
+    InChannel<TKey, TVal> get();
     
-    OutChannel<TKey, TVal> Request();
+    OutChannel<TKey, TVal> request();
 }

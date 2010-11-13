@@ -2,10 +2,10 @@ package de.jebc.ebc;
 
 public interface Splitter<TInput, TOutput1, TOutput2> {
 
-    public InPin<TInput> In();
+    public InPin<TInput> in();
 
-    public OutPin<TOutput1> Out1();
+    public OutPin<TOutput1> out1();
 
-    public OutPin<TOutput2> Out2();
+    public OutPin<TOutput2> out2();
 
 }

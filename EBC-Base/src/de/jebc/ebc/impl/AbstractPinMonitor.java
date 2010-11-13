@@ -2,9 +2,9 @@ package de.jebc.ebc.impl;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
-import de.jebc.ebc.PinMonitor;
+import de.jebc.ebc.PinFilter;
 
-public abstract class AbstractPinMonitor<T> implements PinMonitor<T> {
+public abstract class AbstractPinMonitor<T> implements PinFilter<T> {
 
 	private OutPin<T> monitorOut = new SingleOutPin<T>();
 	private InPin<T> monitorIn = new InPin<T>() {
@@ -17,12 +17,12 @@ public abstract class AbstractPinMonitor<T> implements PinMonitor<T> {
 	};
 
 	@Override
-    public OutPin<T> MonitorOut() {
+    public OutPin<T> out() {
 	    return monitorOut;
 	}
 	
 	@Override
-    public InPin<T> MonitorIn() {
+    public InPin<T> in() {
 	    return monitorIn;
 	}
 	protected abstract void inspect(T message);

@@ -1,12 +1,12 @@
 package de.jebc.ebc.impl;
 
-import de.jebc.ebc.ChannelMonitor;
+import de.jebc.ebc.ChannelFilter;
 import de.jebc.ebc.InChannel;
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutChannel;
 
 public abstract class AbstractChannelMonitor<T1, T2> implements
-		ChannelMonitor<T1, T2> {
+		ChannelFilter<T1, T2> {
 
 	private OutChannel<T1, T2> monitorOut = new OutChannelImpl<T1, T2>();
 	private InChannel<T1, T2> monitorIn = new InChannel<T1, T2>() {
@@ -27,12 +27,12 @@ public abstract class AbstractChannelMonitor<T1, T2> implements
 	
 
 	@Override
-    public OutChannel<T1, T2> MonitorOut() {
+    public OutChannel<T1, T2> out() {
 	    return monitorOut;
 	}
 	
 	@Override
-    public InChannel<T1, T2> MonitorIn() {
+    public InChannel<T1, T2> in() {
 	    return monitorIn;
 	}
 	protected abstract void inspectRequest(T1 message);

@@ -14,7 +14,7 @@ public class UpcaseBoard extends AbstractBoard {
 	private Logger log = LoggerFactory.getLogger(UpcaseBoard.class);
     private InChannel<String, String> request;
 
-    public InChannel<String, String> Request() {
+    public InChannel<String, String> request() {
         return request;
     }
 
@@ -37,9 +37,9 @@ public class UpcaseBoard extends AbstractBoard {
 		};
         
         // extend the open pins to the outside
-        request = extend(cache.Get());
+        request = extend(cache.get());
 
         // plumbing the echo board
-        monitor(cache.Request(), join(upcase.Request(), upcase.Response()), with(requestToService));
+        monitor(cache.request(), join(upcase.request(), upcase.response()), with(requestToService));
     }
 }

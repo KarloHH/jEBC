@@ -4,7 +4,7 @@ import de.jebc.ebc.InPin;
 
 public class ConsoleEchoService<T> {
 
-    public InPin<T> Echo() {
+    public InPin<T> echo() {
         return echoPin;
     }
 

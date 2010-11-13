@@ -17,15 +17,15 @@ public class CompileFiles extends AbstractBoard {
     private OutPin<Enumeration<String>> textFilenames = new SingleOutPin<Enumeration<String>>();
     private Splitter<IndexerData, String, String> split;
 
-    public InPin<IndexerData> In() {
+    public InPin<IndexerData> in() {
         return in;
     }
 
-    public OutPin<String> IndexFilename() {
+    public OutPin<String> indexFilename() {
         return indexFilename;
     }
 
-    public OutPin<Enumeration<String>> TextFilenames() {
+    public OutPin<Enumeration<String>> textFilenames() {
         return textFilenames;
     }
 
@@ -33,9 +33,9 @@ public class CompileFiles extends AbstractBoard {
         split = createSplitter();
         CrawlDirectory crawler = new CrawlDirectory();
 
-        in = extend(split.In());
-        indexFilename = extend(split.Out2());
-        connect(split.Out1(), with(crawler.In()));
+        in = extend(split.in());
+        indexFilename = extend(split.out2());
+        connect(split.out1(), with(crawler.in()));
     }
 
     private AbstractSplitter<IndexerData, String, String> createSplitter() {
@@ -43,12 +43,12 @@ public class CompileFiles extends AbstractBoard {
 
             @Override
             protected String getPart1(IndexerData message) {
-                return message.SourceDir;
+                return message.sourceDir;
             }
 
             @Override
             protected String getPart2(IndexerData message) {
-                return message.IndexFilename;
+                return message.indexFilename;
             }
         };
     }

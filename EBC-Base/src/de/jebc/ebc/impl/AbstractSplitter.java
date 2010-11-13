@@ -11,8 +11,8 @@ public abstract class AbstractSplitter<TInput, TOutput1, TOutput2> implements
 
         @Override
         public void receive(TInput message) {
-            Out1().transmit(getPart1(message));
-            Out2().transmit(getPart2(message));
+            out1().transmit(getPart1(message));
+            out2().transmit(getPart2(message));
         }
     };
     private OutPin<TOutput1> out1 = new SingleOutPin<TOutput1>();
@@ -23,17 +23,17 @@ public abstract class AbstractSplitter<TInput, TOutput1, TOutput2> implements
     protected abstract TOutput2 getPart2(TInput message);   
 
     @Override
-    public InPin<TInput> In() {
+    public InPin<TInput> in() {
         return inPin;
     }
 
     @Override
-    public OutPin<TOutput1> Out1() {
+    public OutPin<TOutput1> out1() {
         return out1;
     }
 
     @Override
-    public OutPin<TOutput2> Out2() {
+    public OutPin<TOutput2> out2() {
         return out2;
     }
 

@@ -32,12 +32,12 @@ public class ReadonlyCache<TKey, TVal> implements Cache<TKey, TVal> {
     private OutChannel<TKey, TVal> requestPin = new OutChannelImpl<TKey, TVal>();
 
     @Override
-    public InChannel<TKey, TVal> Get() {
+    public InChannel<TKey, TVal> get() {
         return getPin;
     }
 
     @Override
-    public OutChannel<TKey, TVal> Request() {
+    public OutChannel<TKey, TVal> request() {
         return requestPin;
     }
 

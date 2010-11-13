@@ -17,12 +17,12 @@ public class ConvertToUpperCaseImpl implements ConvertToUpperCase {
     private OutPin<String> responsePin = new SingleOutPin<String>();
 
     @Override
-    public InPin<String> Request() {
+    public InPin<String> request() {
         return requestPin;
     }
 
     @Override
-    public OutPin<String> Response() {
+    public OutPin<String> response() {
         return responsePin;
     }
 
