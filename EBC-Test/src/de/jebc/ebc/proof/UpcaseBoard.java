@@ -8,7 +8,7 @@ import de.jebc.ebc.InChannel;
 import de.jebc.ebc.impl.AbstractBoard;
 import de.jebc.ebc.parts.Cache;
 import de.jebc.ebc.parts.ReadonlyCache;
-import de.jebc.logging.LogChannelMonitor;
+import de.jebc.logging.channel.LogDebugChannel;
 
 public class UpcaseBoard extends AbstractBoard {
 
@@ -35,8 +35,8 @@ public class UpcaseBoard extends AbstractBoard {
         monitor(cache.request(), join(upcase.request(), upcase.response()), with(loggerBehindCache));
     }
 
-    private LogChannelMonitor<String, String> getBehindCacheLogger() {
-        return new LogChannelMonitor<String, String>(log) {
+    private ChannelFilter<String, String> getBehindCacheLogger() {
+        return new LogDebugChannel<String, String>(log) {
 
             @Override
             protected String getRequest() {
@@ -49,8 +49,8 @@ public class UpcaseBoard extends AbstractBoard {
             }
         };
     }
-    private LogChannelMonitor<String, String> getFrontCacheLogger() {
-        return new LogChannelMonitor<String, String>(log) {
+    private ChannelFilter<String, String> getFrontCacheLogger() {
+        return new LogDebugChannel<String, String>(log) {
 
             @Override
             protected String getRequest() {

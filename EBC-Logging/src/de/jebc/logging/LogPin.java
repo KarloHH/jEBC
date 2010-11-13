@@ -4,12 +4,12 @@ import org.slf4j.Logger;
 
 import de.jebc.ebc.impl.AbstractPinMonitor;
 
-public abstract class LogPinMonitor<T> extends AbstractPinMonitor<T> {
+public abstract class LogPin<T> extends AbstractPinMonitor<T> {
 
 	
 	private final Logger log;
 
-	public LogPinMonitor(Logger log) {
+	public LogPin(Logger log) {
 		this.log = log;
 		
 	}
