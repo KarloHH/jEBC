@@ -1,31 +1,31 @@
-package de.jebc.ebc.proof;
+package de.jebc.ebc.upcase;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.jebc.ebc.ChannelFilter;
-import de.jebc.ebc.InChannel;
-import de.jebc.ebc.impl.AbstractBoard;
+import de.jebc.ebc.ServicePin;
+import de.jebc.ebc.impl.QueryMonitor;
+import de.jebc.ebc.impl.Board;
 import de.jebc.ebc.parts.Cache;
 import de.jebc.ebc.parts.ReadonlyCache;
-import de.jebc.logging.channel.LogDebugChannel;
+import de.jebc.logging.query.LogDebugQuery;
 
-public class UpcaseBoard extends AbstractBoard {
+public class ConvertStringToUppercaseBoard extends Board {
 
-	private Logger log = LoggerFactory.getLogger(UpcaseBoard.class);
-    private InChannel<String, String> request;
+	private Logger log = LoggerFactory.getLogger(ConvertStringToUppercaseBoard.class);
+    private ServicePin<String, String> request;
 
-    public InChannel<String, String> request() {
+    public ServicePin<String, String> request() {
         return request;
     }
 
-    public UpcaseBoard() {
+    public ConvertStringToUppercaseBoard() {
         // creating the parts
         ConvertToUpperCase upcase = new ConvertToUpperCaseImpl();
         Cache<String, String> cache = new ReadonlyCache<String, String>();
 
-        ChannelFilter<String, String> loggerBehindCache = getBehindCacheLogger();
-        ChannelFilter<String, String> loggerFrontCache = getFrontCacheLogger();
+        QueryMonitor<String, String> loggerBehindCache = getBehindCacheLogger();
+        QueryMonitor<String, String> loggerFrontCache = getFrontCacheLogger();
         
         // extend the open pins to the outside
         connect(loggerFrontCache.out(), cache.get());
@@ -35,8 +35,8 @@ public class UpcaseBoard extends AbstractBoard {
         monitor(cache.request(), join(upcase.request(), upcase.response()), with(loggerBehindCache));
     }
 
-    private ChannelFilter<String, String> getBehindCacheLogger() {
-        return new LogDebugChannel<String, String>(log) {
+    private QueryMonitor<String, String> getBehindCacheLogger() {
+        return new LogDebugQuery<String, String>(log) {
 
             @Override
             protected String getRequest() {
@@ -49,8 +49,8 @@ public class UpcaseBoard extends AbstractBoard {
             }
         };
     }
-    private ChannelFilter<String, String> getFrontCacheLogger() {
-        return new LogDebugChannel<String, String>(log) {
+    private QueryMonitor<String, String> getFrontCacheLogger() {
+        return new LogDebugQuery<String, String>(log) {
 
             @Override
             protected String getRequest() {

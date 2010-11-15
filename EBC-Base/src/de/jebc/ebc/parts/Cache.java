@@ -1,12 +1,12 @@
 package de.jebc.ebc.parts;
 
-import de.jebc.ebc.InChannel;
-import de.jebc.ebc.OutChannel;
+import de.jebc.ebc.ServicePin;
+import de.jebc.ebc.QueryPin;
 
 
 public interface Cache<TKey, TVal> {
 
-    InChannel<TKey, TVal> get();
+    ServicePin<TKey, TVal> get();
     
-    OutChannel<TKey, TVal> request();
+    QueryPin<TKey, TVal> request();
 }

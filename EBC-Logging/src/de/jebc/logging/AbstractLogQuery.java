@@ -2,15 +2,15 @@ package de.jebc.logging;
 
 import org.slf4j.Logger;
 
-import de.jebc.ebc.impl.AbstractChannelMonitor;
+import de.jebc.ebc.impl.QueryMonitor;
 
-public abstract class LogChannel<T1, T2> extends
-		AbstractChannelMonitor<T1, T2> {
+public abstract class AbstractLogQuery<T1, T2> extends
+		QueryMonitor<T1, T2> {
 
 	
 	protected final Logger log;
 
-	public LogChannel(Logger log) {
+	public AbstractLogQuery(Logger log) {
 		this.log = log;
 	}
 

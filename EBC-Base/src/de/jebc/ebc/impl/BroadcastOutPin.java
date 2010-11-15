@@ -18,7 +18,7 @@ public class BroadcastOutPin<T> implements OutPin<T> {
     }
 
     @Override
-    public void transmit(T message) {
+    public void send(T message) {
         for (InPin<T> pin : pins) {
             pin.receive(message);
         }

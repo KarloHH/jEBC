@@ -1,15 +1,15 @@
 package de.jebc.ebc.impl;
 
-import de.jebc.ebc.InChannel;
+import de.jebc.ebc.ServicePin;
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
 
-public class JoinPinChannel<T1, T2> implements InChannel<T1, T2> {
+public class ServiceAdapter<T1, T2> implements ServicePin<T1, T2> {
 
     private InPin<T1> inPin;
     private InPin<T2> response;
 
-    public JoinPinChannel(InPin<T1> in, OutPin<T2> out) {
+    public ServiceAdapter(InPin<T1> in, OutPin<T2> out) {
         inPin = in;
         out.connect(new InPin<T2>() {
             

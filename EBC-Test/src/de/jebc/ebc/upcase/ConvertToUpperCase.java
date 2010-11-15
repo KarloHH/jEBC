@@ -1,4 +1,4 @@
-package de.jebc.ebc.proof;
+package de.jebc.ebc.upcase;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;

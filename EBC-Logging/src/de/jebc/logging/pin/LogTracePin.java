@@ -1,15 +1,18 @@
-package de.jebc.logging.channel;
+package de.jebc.logging.pin;
 
 import org.slf4j.Logger;
 
-import de.jebc.logging.LogChannel;
+import de.jebc.logging.AbstractLogPin;
 
-public abstract class LogTraceChannel<T1, T2> extends LogChannel<T1, T2> {
+public abstract class LogTracePin<T> extends AbstractLogPin<T> {
 
-    public LogTraceChannel(Logger log) {
+    public LogTracePin(Logger log) {
         super(log);
     }
-    
+
+    @Override
+    protected abstract String getMessage();
+
     @Override
     protected boolean enabled() {
         return log.isTraceEnabled();
@@ -19,4 +22,5 @@ public abstract class LogTraceChannel<T1, T2> extends LogChannel<T1, T2> {
     protected void log(String text, String param) {
         log.trace(text, param);
     }
+
 }

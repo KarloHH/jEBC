@@ -1,12 +1,12 @@
 package de.jebc.ebc.impl;
 
-import de.jebc.ebc.InChannel;
+import de.jebc.ebc.ServicePin;
 import de.jebc.ebc.InPin;
 
-public class ExtensionInChannel<T1, T2> implements InChannel<T1, T2> {
+public class ServicePinExtension<T1, T2> implements ServicePin<T1, T2> {
 
-    private final InChannel<T1, T2> pin;
-    public ExtensionInChannel(InChannel<T1, T2> pin) {
+    private final ServicePin<T1, T2> pin;
+    public ServicePinExtension(ServicePin<T1, T2> pin) {
         this.pin = pin;
     }
     @Override

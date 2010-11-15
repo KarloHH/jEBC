@@ -2,11 +2,11 @@ package de.jebc.ebc.impl;
 
 import de.jebc.ebc.InPin;
 
-public class ExtensionInPin<T> implements InPin<T> {
+public class InPinExtension<T> implements InPin<T> {
 
     private final InPin<T> pin;
 
-    public ExtensionInPin(InPin<T> pin) {
+    public InPinExtension(InPin<T> pin) {
         this.pin = pin;
     }
     

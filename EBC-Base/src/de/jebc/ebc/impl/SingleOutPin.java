@@ -13,7 +13,7 @@ public class SingleOutPin<T> implements OutPin<T> {
     }
 
     @Override
-    public void transmit(T message) {
+    public void send(T message) {
         inPin.receive(message);
     }
 

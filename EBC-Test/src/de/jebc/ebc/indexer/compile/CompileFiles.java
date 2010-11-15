@@ -4,18 +4,17 @@ import java.util.Enumeration;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
-import de.jebc.ebc.Splitter;
-import de.jebc.ebc.impl.AbstractBoard;
-import de.jebc.ebc.impl.AbstractSplitter;
+import de.jebc.ebc.impl.Board;
+import de.jebc.ebc.impl.Splitter;
 import de.jebc.ebc.impl.SingleOutPin;
 import de.jebc.ebc.indexer.IndexerData;
 
-public class CompileFiles extends AbstractBoard {
+public class CompileFiles extends Board {
 
     private InPin<IndexerData> in;
     private OutPin<String> indexFilename;
     private OutPin<Enumeration<String>> textFilenames = new SingleOutPin<Enumeration<String>>();
-    private Splitter<IndexerData, String, String> split;
+    private Splitter<IndexerData,String,String> split;
 
     public InPin<IndexerData> in() {
         return in;
@@ -38,16 +37,16 @@ public class CompileFiles extends AbstractBoard {
         connect(split.out1(), with(crawler.in()));
     }
 
-    private AbstractSplitter<IndexerData, String, String> createSplitter() {
-        return new AbstractSplitter<IndexerData, String, String>() {
+    private Splitter<IndexerData, String, String> createSplitter() {
+        return new Splitter<IndexerData, String, String>() {
 
             @Override
-            protected String getPart1(IndexerData message) {
+            protected String getMessage1(IndexerData message) {
                 return message.sourceDir;
             }
 
             @Override
-            protected String getPart2(IndexerData message) {
+            protected String getMessage2(IndexerData message) {
                 return message.indexFilename;
             }
         };

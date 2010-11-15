@@ -1,12 +1,12 @@
-package de.jebc.logging.channel;
+package de.jebc.logging.query;
 
 import org.slf4j.Logger;
 
-import de.jebc.logging.LogChannel;
+import de.jebc.logging.AbstractLogQuery;
 
-public abstract class LogWarnChannel<T1, T2> extends LogChannel<T1, T2> {
+public abstract class LogWarnQuery<T1, T2> extends AbstractLogQuery<T1, T2> {
 
-    public LogWarnChannel(Logger log) {
+    public LogWarnQuery(Logger log) {
         super(log);
     }
     

@@ -1,4 +1,4 @@
-package de.jebc.ebc.proof;
+package de.jebc.ebc.upcase;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
@@ -10,7 +10,7 @@ public class ConvertToUpperCaseImpl implements ConvertToUpperCase {
 
         @Override
         public void receive(String message) {
-            responsePin.transmit(message.toUpperCase());
+            responsePin.send(message.toUpperCase());
         }
 
     };

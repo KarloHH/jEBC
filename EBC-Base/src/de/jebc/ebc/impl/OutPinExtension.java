@@ -3,11 +3,11 @@ package de.jebc.ebc.impl;
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
 
-public class ExtensionOutPin<T> implements OutPin<T> {
+public class OutPinExtension<T> implements OutPin<T> {
 
     private OutPin<T> outPin;
 
-    public ExtensionOutPin(OutPin<T> pin) {
+    public OutPinExtension(OutPin<T> pin) {
         outPin=pin;
     }
 
@@ -17,8 +17,8 @@ public class ExtensionOutPin<T> implements OutPin<T> {
     }
 
     @Override
-    public void transmit(T message) {
-        outPin.transmit(message);
+    public void send(T message) {
+        outPin.send(message);
     }
 
 }

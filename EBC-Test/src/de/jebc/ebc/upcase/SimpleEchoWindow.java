@@ -1,4 +1,4 @@
-package de.jebc.ebc.proof;
+package de.jebc.ebc.upcase;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import de.jebc.ebc.InPin;
-import de.jebc.ebc.impl.OutChannelImpl;
+import de.jebc.ebc.impl.QueryPinImpl;
 
 public class SimpleEchoWindow extends JFrame {
 
@@ -29,8 +29,8 @@ public class SimpleEchoWindow extends JFrame {
     private JTextField txtInput;
     private JLabel lblAnswer;
 
-    private UpcaseBoard board = new UpcaseBoard();
-    private OutChannelImpl<String, String> outPin;
+    private ConvertStringToUppercaseBoard board = new ConvertStringToUppercaseBoard();
+    private QueryPinImpl<String, String> outPin;
 
     /**
      * Launch the application.
@@ -122,7 +122,7 @@ public class SimpleEchoWindow extends JFrame {
     private ActionListener getUpcaseServiceListener() {
         return new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                outPin.transmit(txtInput.getText(), new InPin<String>() {
+                outPin.send(txtInput.getText(), new InPin<String>() {
 
                     @Override
                     public void receive(String message) {
@@ -135,7 +135,7 @@ public class SimpleEchoWindow extends JFrame {
 
     private void setup() {
         // connect the board
-        outPin = new OutChannelImpl<String, String>();
+        outPin = new QueryPinImpl<String, String>();
         outPin.connect(board.request());
     }
 }
