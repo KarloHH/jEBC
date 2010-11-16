@@ -4,10 +4,10 @@ import de.jebc.ebc.QueryOutPin;
 import de.jebc.ebc.QueryInPin;
 import de.jebc.ebc.InPin;
 
-public class QueryPinExtension<T1, T2> implements QueryOutPin<T1, T2> {
+public class QueryOutPinExtension<T1, T2> implements QueryOutPin<T1, T2> {
 
     private final QueryOutPin<T1, T2> pin;
-    public QueryPinExtension(QueryOutPin<T1, T2> pin) {
+    public QueryOutPinExtension(QueryOutPin<T1, T2> pin) {
         this.pin = pin;
     }
     @Override

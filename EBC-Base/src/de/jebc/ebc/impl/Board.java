@@ -20,11 +20,11 @@ public abstract class Board {
     }
 
     protected <T1, T2> QueryOutPin<T1, T2> extend(QueryOutPin<T1, T2> out) {
-        return new QueryPinExtension<T1, T2>(out);
+        return new QueryOutPinExtension<T1, T2>(out);
     }
     
     protected <T1, T2> QueryInPin<T1, T2> extend(QueryInPin<T1, T2> inChannel) {
-        return new ServicePinExtension<T1, T2>(inChannel);
+        return new QueryInPinExtension<T1, T2>(inChannel);
     }
 
     protected <T> InPin<T> extend(InPin<T> in2) {
