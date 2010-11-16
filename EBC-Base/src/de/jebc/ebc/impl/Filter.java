@@ -3,26 +3,26 @@ package de.jebc.ebc.impl;
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
 
-public abstract class Filter<T1, T2> {
+public abstract class Filter<TInput, TOutput> {
 
-	private OutPin<T2> filterOut = new SingleOutPin<T2>();
-	private InPin<T1> filterIn = new InPin<T1>() {
+	private OutPin<TOutput> filterOut = new SingleOutPin<TOutput>();
+	private InPin<TInput> filterIn = new InPin<TInput>() {
 
 		@Override
-		public void receive(T1 message) {
-			T2 result = filter(message);
+		public void receive(TInput message) {
+			TOutput result = filter(message);
 			filterOut.send(result);
 		}
 	};
 
-    public OutPin<T2> out() {
+    public OutPin<TOutput> out() {
 	    return filterOut;
 	}
 	
-    public InPin<T1> in() {
+    public InPin<TInput> in() {
 	    return filterIn;
 	}
     
-	protected abstract T2 filter(T1 message);
+	protected abstract TOutput filter(TInput message);
 
 }

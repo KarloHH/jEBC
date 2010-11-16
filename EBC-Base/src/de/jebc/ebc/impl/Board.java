@@ -49,7 +49,8 @@ public abstract class Board {
         connect(monitor.out(), input);
     }
     
-    protected <T1, T2> void filter(OutPin<T2> output, InPin<T1> input, Filter<T1, T2> filter) {
-        
+    protected <T1, T2> void filter(OutPin<T1> output, InPin<T2> input, Filter<T1, T2> filter) {
+        connect(output, filter.in());
+        connect(filter.out(), input);
     }
 }
