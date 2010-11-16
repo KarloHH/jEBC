@@ -3,7 +3,8 @@ package de.jebc.ebc.upcase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.jebc.ebc.ServicePin;
+import de.jebc.ebc.QueryInPin;
+import de.jebc.ebc.impl.Filter;
 import de.jebc.ebc.impl.QueryMonitor;
 import de.jebc.ebc.impl.Board;
 import de.jebc.ebc.parts.Cache;
@@ -13,15 +14,15 @@ import de.jebc.logging.query.LogDebugQuery;
 public class ConvertStringToUppercaseBoard extends Board {
 
 	private Logger log = LoggerFactory.getLogger(ConvertStringToUppercaseBoard.class);
-    private ServicePin<String, String> request;
+    private QueryInPin<String, String> request;
 
-    public ServicePin<String, String> request() {
+    public QueryInPin<String, String> request() {
         return request;
     }
 
     public ConvertStringToUppercaseBoard() {
         // creating the parts
-        ConvertToUpperCase upcase = new ConvertToUpperCaseImpl();
+        Filter<String, String> upcase = new ConvertToUpperCase();
         Cache<String, String> cache = new ReadonlyCache<String, String>();
 
         QueryMonitor<String, String> loggerBehindCache = getBehindCacheLogger();
@@ -32,7 +33,7 @@ public class ConvertStringToUppercaseBoard extends Board {
         request = extend(loggerFrontCache.in());
 
         // plumbing the echo board
-        monitor(cache.request(), join(upcase.request(), upcase.response()), with(loggerBehindCache));
+        monitor(cache.request(), join(upcase.in(), upcase.out()), with(loggerBehindCache));
     }
 
     private QueryMonitor<String, String> getBehindCacheLogger() {

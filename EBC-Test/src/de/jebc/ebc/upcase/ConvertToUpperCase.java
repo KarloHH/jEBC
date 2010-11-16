@@ -1,11 +1,12 @@
 package de.jebc.ebc.upcase;
 
-import de.jebc.ebc.InPin;
-import de.jebc.ebc.OutPin;
+import de.jebc.ebc.impl.Filter;
 
-public interface ConvertToUpperCase {
+public class ConvertToUpperCase extends Filter<String, String> {
 
-    public InPin<String> request();
-    public OutPin<String> response();
+    @Override
+    protected String filter(String message) {
+        return message.toUpperCase();
+    }
 
 }

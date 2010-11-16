@@ -2,8 +2,8 @@ package de.jebc.ebc.impl;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
-import de.jebc.ebc.QueryOutPin;
 import de.jebc.ebc.QueryInPin;
+import de.jebc.ebc.QueryOutPin;
 
 public abstract class Board {
 
@@ -44,4 +44,12 @@ public abstract class Board {
         connect(monitor.out(), input);
     }
     
+    protected <T> void monitor(OutPin<T> output, InPin<T> input, Monitor<T> monitor) {
+        connect(output, monitor.in());
+        connect(monitor.out(), input);
+    }
+    
+    protected <T1, T2> void filter(OutPin<T2> output, InPin<T1> input, Filter<T1, T2> filter) {
+        
+    }
 }
