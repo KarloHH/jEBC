@@ -1,15 +1,15 @@
 package de.jebc.ebc.impl;
 
-import de.jebc.ebc.QueryPin;
+import de.jebc.ebc.QueryOutPin;
 import de.jebc.ebc.InPin;
-import de.jebc.ebc.ServicePin;
+import de.jebc.ebc.QueryInPin;
 
-public class QueryPinImpl<T1, T2> implements QueryPin<T1, T2> {
+public class QueryPinImpl<T1, T2> implements QueryOutPin<T1, T2> {
 
-    private ServicePin<T1, T2> pin;
+    private QueryInPin<T1, T2> pin;
 
     @Override
-    public void connect(ServicePin<T1, T2> inPin) {
+    public void connect(QueryInPin<T1, T2> inPin) {
         pin = inPin;
     }
 

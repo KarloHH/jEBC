@@ -3,15 +3,15 @@ package de.jebc.ebc.parts;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.jebc.ebc.ServicePin;
+import de.jebc.ebc.QueryInPin;
 import de.jebc.ebc.InPin;
-import de.jebc.ebc.QueryPin;
+import de.jebc.ebc.QueryOutPin;
 import de.jebc.ebc.impl.QueryPinImpl;
 
 public class ReadonlyCache<TKey, TVal> implements Cache<TKey, TVal> {
 
     private Map<TKey, TVal> cache = new HashMap<TKey, TVal>();
-    private ServicePin<TKey, TVal> getPin = new ServicePin<TKey, TVal>() {
+    private QueryInPin<TKey, TVal> getPin = new QueryInPin<TKey, TVal>() {
 
         @Override
         public void receive(final TKey message, final InPin<TVal> response) {
@@ -29,15 +29,15 @@ public class ReadonlyCache<TKey, TVal> implements Cache<TKey, TVal> {
             }
         }
     };
-    private QueryPin<TKey, TVal> requestPin = new QueryPinImpl<TKey, TVal>();
+    private QueryOutPin<TKey, TVal> requestPin = new QueryPinImpl<TKey, TVal>();
 
     @Override
-    public ServicePin<TKey, TVal> get() {
+    public QueryInPin<TKey, TVal> get() {
         return getPin;
     }
 
     @Override
-    public QueryPin<TKey, TVal> request() {
+    public QueryOutPin<TKey, TVal> request() {
         return requestPin;
     }
 

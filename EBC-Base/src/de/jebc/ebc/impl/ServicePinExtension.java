@@ -1,12 +1,12 @@
 package de.jebc.ebc.impl;
 
-import de.jebc.ebc.ServicePin;
+import de.jebc.ebc.QueryInPin;
 import de.jebc.ebc.InPin;
 
-public class ServicePinExtension<T1, T2> implements ServicePin<T1, T2> {
+public class ServicePinExtension<T1, T2> implements QueryInPin<T1, T2> {
 
-    private final ServicePin<T1, T2> pin;
-    public ServicePinExtension(ServicePin<T1, T2> pin) {
+    private final QueryInPin<T1, T2> pin;
+    public ServicePinExtension(QueryInPin<T1, T2> pin) {
         this.pin = pin;
     }
     @Override

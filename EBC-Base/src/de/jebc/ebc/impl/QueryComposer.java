@@ -1,15 +1,15 @@
 package de.jebc.ebc.impl;
 
-import de.jebc.ebc.ServicePin;
+import de.jebc.ebc.QueryInPin;
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
 
-public class ServiceAdapter<T1, T2> implements ServicePin<T1, T2> {
+public class QueryComposer<T1, T2> implements QueryInPin<T1, T2> {
 
     private InPin<T1> inPin;
     private InPin<T2> response;
 
-    public ServiceAdapter(InPin<T1> in, OutPin<T2> out) {
+    public QueryComposer(InPin<T1> in, OutPin<T2> out) {
         inPin = in;
         out.connect(new InPin<T2>() {
             
