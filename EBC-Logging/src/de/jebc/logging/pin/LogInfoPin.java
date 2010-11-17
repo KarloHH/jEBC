@@ -11,7 +11,7 @@ public abstract class LogInfoPin<T> extends AbstractLogPin<T> {
     }
 
     @Override
-    protected abstract String getMessage();
+    protected abstract String getLogMessage(T message);
 
     @Override
     protected boolean enabled() {
@@ -19,8 +19,8 @@ public abstract class LogInfoPin<T> extends AbstractLogPin<T> {
     }
 
     @Override
-    protected void log(String text, String param) {
-        log.info(text, param);
+    protected void log(String text) {
+        log.info(text);
     }
 
 }

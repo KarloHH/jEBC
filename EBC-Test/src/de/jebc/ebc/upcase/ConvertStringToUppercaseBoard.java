@@ -40,13 +40,13 @@ public class ConvertStringToUppercaseBoard extends Board {
         return new LogDebugQuery<String, String>(log) {
 
             @Override
-            protected String getRequest() {
-                return "Cache is requesting a value for {}";
+            protected String getLogMessageForRequest(String message) {
+                return "Cache is requesting a value for " + message;
             }
 
             @Override
-            protected String getResponse() {
-                return "Cache gets value {}";
+            protected String getLogMessageForResponse(String message) {
+                return "Cache gets value " + message;
             }
         };
     }
@@ -54,13 +54,13 @@ public class ConvertStringToUppercaseBoard extends Board {
         return new LogDebugQuery<String, String>(log) {
 
             @Override
-            protected String getRequest() {
-                return "Cache is requested for a value for {}";
+            protected String getLogMessageForRequest(String message) {
+                return "Cache is requested for a value for " + message;
             }
 
             @Override
-            protected String getResponse() {
-                return "Cache returns value {}";
+            protected String getLogMessageForResponse(String message) {
+                return "Cache returns value " + message;
             }
         };
     }

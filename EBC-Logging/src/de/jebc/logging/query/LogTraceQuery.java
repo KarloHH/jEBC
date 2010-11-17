@@ -16,7 +16,7 @@ public abstract class LogTraceQuery<T1, T2> extends AbstractLogQuery<T1, T2> {
     }
 
     @Override
-    protected void log(String text, String param) {
-        log.trace(text, param);
+    protected void log(String text) {
+        log.trace(text);
     }
 }

@@ -17,29 +17,21 @@ public abstract class AbstractLogQuery<T1, T2> extends
 	@Override
 	protected void inspectRequest(T1 message) {
 		if (enabled()) {
-            log(getRequest(), getStringRequest(message));
+            log(getLogMessageForRequest(message));
         }
 	}
 
-	protected String getStringRequest(T1 message) {
-		return message.toString();
-	}
-
-	protected abstract String getRequest();
+	protected abstract String getLogMessageForRequest(T1 message);
 
 	@Override
 	protected void inspectResponse(T2 message) {
 		if (enabled()) {
-            log(getResponse(), getStringResponse(message));
+            log(getLogMessageForResponse(message));
         }
 	}
 
-	protected String getStringResponse(T2 message) {
-		return message.toString();
-	}
-
-	protected abstract String getResponse();
+	protected abstract String getLogMessageForResponse(T2 message);
 
 	protected abstract boolean enabled();
-	protected abstract void log(String text, String param);
+	protected abstract void log(String text);
 }

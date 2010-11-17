@@ -16,7 +16,7 @@ public abstract class LogDebugQuery<T1, T2> extends AbstractLogQuery<T1, T2> {
     }
     
     @Override
-    protected void log(String text, String param) {
-        log.debug(text, param);
+    protected void log(String text) {
+        log.debug(text);
     }
 }

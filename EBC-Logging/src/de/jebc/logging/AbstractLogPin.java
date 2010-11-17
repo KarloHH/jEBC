@@ -17,18 +17,14 @@ public abstract class AbstractLogPin<T> extends Monitor<T> {
 	@Override
 	protected void inspect(T message) {
 		if (enabled()) {
-		    log(getMessage(), getString(message));
+		    log(getLogMessage(message));
 		}
 	}
 
-	protected String getString(T message) {
-		return message.toString();
-	}
-
-	protected abstract String getMessage();
+	protected abstract String getLogMessage(T message);
 
 	protected abstract boolean enabled();
 	
-	protected abstract void log(String text, String param);
+	protected abstract void log(String text);
 
 }

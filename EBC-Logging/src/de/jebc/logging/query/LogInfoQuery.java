@@ -16,7 +16,7 @@ public abstract class LogInfoQuery<T1, T2> extends AbstractLogQuery<T1, T2> {
     }
 
     @Override
-    protected void log(String text, String param) {
-        log.info(text, param);
+    protected void log(String text) {
+        log.info(text);
     }
 }
