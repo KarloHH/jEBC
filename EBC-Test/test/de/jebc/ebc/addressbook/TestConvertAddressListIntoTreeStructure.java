@@ -10,6 +10,9 @@ import javax.swing.tree.TreeModel;
 import org.junit.Test;
 
 import de.jebc.ebc.InPin;
+import de.jebc.ebc.addressbook.domain.AddressCategory;
+import de.jebc.ebc.addressbook.domain.BaseAddressData;
+import de.jebc.ebc.addressbook.domain.ConvertAddressesIntoTreeStructure;
 
 public class TestConvertAddressListIntoTreeStructure {
 

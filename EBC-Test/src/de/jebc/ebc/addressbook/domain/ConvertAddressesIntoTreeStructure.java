@@ -1,4 +1,4 @@
-package de.jebc.ebc.addressbook;
+package de.jebc.ebc.addressbook.domain;
 
 import java.util.HashMap;
 import java.util.List;

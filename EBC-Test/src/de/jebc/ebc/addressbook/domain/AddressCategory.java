@@ -1,4 +1,4 @@
-package de.jebc.ebc.addressbook;
+package de.jebc.ebc.addressbook.domain;
 
 public class AddressCategory {
 
