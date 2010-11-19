@@ -14,7 +14,6 @@ public class CompileFiles extends Board {
     private InPin<IndexerData> in;
     private OutPin<String> indexFilename;
     private OutPin<Enumeration<String>> textFilenames = new SingleOutPin<Enumeration<String>>();
-    private Splitter<IndexerData,String,String> split;
 
     public InPin<IndexerData> in() {
         return in;
@@ -29,7 +28,7 @@ public class CompileFiles extends Board {
     }
 
     public CompileFiles() {
-        split = createSplitter();
+        Splitter<IndexerData, String, String> split = createSplitter();
         CrawlDirectory crawler = new CrawlDirectory();
 
         in = extend(split.in());
