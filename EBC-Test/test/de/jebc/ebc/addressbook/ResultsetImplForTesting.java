@@ -2,13 +2,13 @@ package de.jebc.ebc.addressbook;
 
 import de.jebc.ebc.addressbook.data.Resultset;
 
-public class TestResultset implements Resultset {
+public class ResultsetImplForTesting implements Resultset {
 
     private String[] columnNames;
     private Object[][] rows;
     private int rowIndex;
     
-    public TestResultset(String[] columnNames, Object[][] rows) {
+    public ResultsetImplForTesting(String[] columnNames, Object[][] rows) {
         this.columnNames = columnNames;
         this.rows = rows;
         rowIndex = -1;

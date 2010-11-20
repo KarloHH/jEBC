@@ -33,7 +33,7 @@ public class TestGenerateBaseAddressDTOs {
     }
 
     private Resultset createResultset() {
-        return new TestResultset(new String[]{
+        return new ResultsetImplForTesting(new String[]{
                 "ID", "Category", "GivenName", "Name"
         }, 
         new Object[][]{
