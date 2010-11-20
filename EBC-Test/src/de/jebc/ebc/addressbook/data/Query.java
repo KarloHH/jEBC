@@ -1,4 +1,4 @@
-package de.jebc.ebc.addressbook.data.baseadresses;
+package de.jebc.ebc.addressbook.data;
 
 public class Query {
 

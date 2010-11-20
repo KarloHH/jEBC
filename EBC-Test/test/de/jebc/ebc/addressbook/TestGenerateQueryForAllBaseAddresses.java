@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import de.jebc.ebc.InPin;
-import de.jebc.ebc.addressbook.data.baseadresses.Query;
-import de.jebc.ebc.addressbook.data.baseadresses.GenerateQueryForAllBaseAdresses;
+import de.jebc.ebc.addressbook.data.Query;
+import de.jebc.ebc.addressbook.domain.baseadresses.GenerateQueryForAllBaseAdresses;
 
 public class TestGenerateQueryForAllBaseAddresses {
 

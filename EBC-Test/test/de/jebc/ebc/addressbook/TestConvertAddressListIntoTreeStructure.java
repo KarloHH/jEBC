@@ -11,8 +11,8 @@ import org.junit.Test;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.addressbook.domain.AddressCategory;
-import de.jebc.ebc.addressbook.domain.BaseAddressData;
 import de.jebc.ebc.addressbook.domain.ConvertAddressesIntoTreeStructure;
+import de.jebc.ebc.addressbook.domain.baseadresses.BaseAddressData;
 
 public class TestConvertAddressListIntoTreeStructure {
 
@@ -21,15 +21,15 @@ public class TestConvertAddressListIntoTreeStructure {
     @Test
     public void setupInterface() {
         List<BaseAddressData> input = new ArrayList<BaseAddressData>();
-        input.add(new BaseAddressData(new AddressCategory("Privat"),
+        input.add(new BaseAddressData(1, new AddressCategory("Privat"),
                 "Meyer, Hans"));
-        input.add(new BaseAddressData(new AddressCategory("Büro"),
+        input.add(new BaseAddressData(2, new AddressCategory("Büro"),
                 "Franzen, Franz"));
-        input.add(new BaseAddressData(new AddressCategory("Privat"),
+        input.add(new BaseAddressData(3, new AddressCategory("Privat"),
                 "Pitt, Brad"));
-        input.add(new BaseAddressData(new AddressCategory("Privat"),
+        input.add(new BaseAddressData(4, new AddressCategory("Privat"),
                 "Jolie, Angelina"));
-        input.add(new BaseAddressData(new AddressCategory("Büro"),
+        input.add(new BaseAddressData(5, new AddressCategory("Büro"),
                 "Merkel, Angela"));
 
         ConvertAddressesIntoTreeStructure sut = new ConvertAddressesIntoTreeStructure();

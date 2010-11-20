@@ -1,4 +1,4 @@
-package de.jebc.ebc.addressbook.data.baseadresses;
+package de.jebc.ebc.addressbook.domain.baseadresses;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.addressbook.data.Resultset;
+import de.jebc.ebc.addressbook.domain.AddressCategory;
 import de.jebc.ebc.impl.SingleOutPin;
 
 public class GenerateBaseAddressDTOs {
@@ -30,19 +31,16 @@ public class GenerateBaseAddressDTOs {
 
     protected List<BaseAddressData> generate(Resultset rs) {
         List<BaseAddressData> result = new ArrayList<BaseAddressData>();
-        while(rs.next()) {
+        while (rs.next()) {
             result.add(buildBaseAddress(rs));
         }
         return result;
     }
 
     private BaseAddressData buildBaseAddress(Resultset rs) {
-        BaseAddressData result = new BaseAddressData(
-                rs.getInt("ID"),
-                rs.getString("Category"),
-                rs.getString("GivenName"),
-                rs.getString("Name")
-                );
+        BaseAddressData result = new BaseAddressData(rs.getInt("ID"),
+                new AddressCategory(rs.getString("Category")),
+                rs.getString("Name") + ", " + rs.getString("GivenName"));
         return result;
     }
 

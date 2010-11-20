@@ -8,8 +8,8 @@ import org.junit.Test;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.addressbook.data.Resultset;
-import de.jebc.ebc.addressbook.data.baseadresses.BaseAddressData;
-import de.jebc.ebc.addressbook.data.baseadresses.GenerateBaseAddressDTOs;
+import de.jebc.ebc.addressbook.domain.baseadresses.BaseAddressData;
+import de.jebc.ebc.addressbook.domain.baseadresses.GenerateBaseAddressDTOs;
 
 public class TestGenerateBaseAddressDTOs {
 
@@ -29,7 +29,7 @@ public class TestGenerateBaseAddressDTOs {
         });
         sut.start().receive(data);
         assertEquals(3, result.size());
-        assertEquals("VN1", result.get(0).getGivenName());
+        assertEquals("NM1, VN1", result.get(0).getName());
     }
 
     private Resultset createResultset() {

@@ -7,10 +7,10 @@ import java.util.Map;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
-import javax.swing.tree.TreeNode;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
+import de.jebc.ebc.addressbook.domain.baseadresses.BaseAddressData;
 import de.jebc.ebc.impl.SingleOutPin;
 
 public class ConvertAddressesIntoTreeStructure {

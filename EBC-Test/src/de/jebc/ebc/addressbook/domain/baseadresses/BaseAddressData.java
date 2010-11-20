@@ -1,33 +1,29 @@
-package de.jebc.ebc.addressbook.data.baseadresses;
+package de.jebc.ebc.addressbook.domain.baseadresses;
+
+import de.jebc.ebc.addressbook.domain.AddressCategory;
 
 public class BaseAddressData {
 
     private final int id;
-    private final String category;
-    private final String givenname;
+    private final AddressCategory category;
     private final String name;
 
     public int getId() {
         return id;
     }
 
-    public String getCategory() {
+    public AddressCategory getCategory() {
         return category;
-    }
-
-    public String getGivenName() {
-        return givenname;
     }
 
     public String getName() {
         return name;
     }
 
-    public BaseAddressData(int id, String category, String givenname,
+    public BaseAddressData(int id, AddressCategory category,
             String name) {
         this.id = id;
         this.category = category;
-        this.givenname = givenname;
         this.name = name;
     }
 
