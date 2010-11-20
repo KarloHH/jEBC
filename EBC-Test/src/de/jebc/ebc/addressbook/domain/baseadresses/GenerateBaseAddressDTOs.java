@@ -5,6 +5,7 @@ import java.util.List;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
+import de.jebc.ebc.addressbook.data.DataException;
 import de.jebc.ebc.addressbook.data.Resultset;
 import de.jebc.ebc.addressbook.domain.AddressCategory;
 import de.jebc.ebc.impl.SingleOutPin;
@@ -31,13 +32,18 @@ public class GenerateBaseAddressDTOs {
 
     protected List<BaseAddressData> generate(Resultset rs) {
         List<BaseAddressData> result = new ArrayList<BaseAddressData>();
-        while (rs.next()) {
-            result.add(buildBaseAddress(rs));
+        try {
+            while (rs.next()) {
+                result.add(buildBaseAddress(rs));
+            }
+        } catch (DataException e) {
+            // TODO exception handling
+            e.printStackTrace();
         }
         return result;
     }
 
-    private BaseAddressData buildBaseAddress(Resultset rs) {
+    private BaseAddressData buildBaseAddress(Resultset rs) throws DataException {
         BaseAddressData result = new BaseAddressData(rs.getInt("ID"),
                 new AddressCategory(rs.getString("Category")),
                 rs.getString("Name") + ", " + rs.getString("GivenName"));

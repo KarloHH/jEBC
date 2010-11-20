@@ -7,6 +7,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/EBC-Logging"/>
 	<classpathentry kind="lib" path="/media/AKTIV/Programmierung/libs/slf4j-api-1.6.1.jar"/>
 	<classpathentry kind="lib" path="/media/AKTIV/Programmierung/libs/slf4j-simple-1.6.1.jar"/>
+	<classpathentry kind="lib" path="libs/sqlitejdbc-v056.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
