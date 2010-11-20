@@ -13,6 +13,7 @@ import de.jebc.ebc.QueryInPin;
 import de.jebc.ebc.addressbook.data.Query;
 import de.jebc.ebc.addressbook.data.Resultset;
 import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasourceQuery;
+import de.jebc.ebc.addressbook.data.jdbc.JdbcExecuteDatasourceQuery;
 
 public class TestExecuteDatasourceQuery {
 
@@ -24,7 +25,7 @@ public class TestExecuteDatasourceQuery {
         final Connection conn = getConnection();
         Query query = new Query("Adressen", new String[] { "ID", "Name" });
 
-        ExecuteDatasourceQuery sut = new ExecuteDatasourceQuery();
+        ExecuteDatasourceQuery sut = new JdbcExecuteDatasourceQuery();
 
         sut.Result().connect(new InPin<Resultset>() {
 

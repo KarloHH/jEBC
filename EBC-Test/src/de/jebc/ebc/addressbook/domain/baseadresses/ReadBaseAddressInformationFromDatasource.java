@@ -7,6 +7,7 @@ import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.QueryOutPin;
 import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasourceQuery;
+import de.jebc.ebc.addressbook.data.jdbc.JdbcExecuteDatasourceQuery;
 import de.jebc.ebc.impl.Board;
 
 public class ReadBaseAddressInformationFromDatasource extends Board {
@@ -15,9 +16,9 @@ public class ReadBaseAddressInformationFromDatasource extends Board {
     private QueryOutPin<Object, Connection> connectionPin;
     private OutPin<List<BaseAddressData>> resultPin;
 
-    public ReadBaseAddressInformationFromDatasource() {
+    public ReadBaseAddressInformationFromDatasource(JdbcExecuteDatasourceQuery jdbcExecuteDatasourceQuery) {
         GenerateQueryForAllBaseAdresses generateQuery = new GenerateQueryForAllBaseAdresses();
-        ExecuteDatasourceQuery execute = new ExecuteDatasourceQuery();
+        ExecuteDatasourceQuery execute = jdbcExecuteDatasourceQuery;
         GenerateBaseAddressDTOs generateDTOs = new GenerateBaseAddressDTOs();
         //
         startPin = extend(generateQuery.start());
