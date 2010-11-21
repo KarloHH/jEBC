@@ -1,4 +1,4 @@
-package de.jebc.ebc.addressbook.domain.baseadresses;
+package de.jebc.ebc.addressbook.activities;
 
 import javax.swing.tree.TreeModel;
 
@@ -6,6 +6,7 @@ import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.addressbook.data.ExecuteDatasourceQuery;
 import de.jebc.ebc.addressbook.domain.ConvertAddressesIntoTreeStructure;
+import de.jebc.ebc.addressbook.domain.baseadresses.ReadBaseAddressInformationFromDatasource;
 import de.jebc.ebc.impl.Board;
 
 public class DisplayTreeOfAllAdresses extends Board {
