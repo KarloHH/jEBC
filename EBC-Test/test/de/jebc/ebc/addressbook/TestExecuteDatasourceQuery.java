@@ -10,9 +10,9 @@ import org.junit.Test;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.QueryInPin;
+import de.jebc.ebc.addressbook.data.ExecuteDatasourceQuery;
 import de.jebc.ebc.addressbook.data.Query;
 import de.jebc.ebc.addressbook.data.Resultset;
-import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasourceQuery;
 import de.jebc.ebc.addressbook.data.jdbc.JdbcExecuteDatasourceQuery;
 
 public class TestExecuteDatasourceQuery {

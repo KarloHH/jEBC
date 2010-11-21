@@ -6,7 +6,7 @@ import java.util.List;
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.QueryOutPin;
-import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasourceQuery;
+import de.jebc.ebc.addressbook.data.ExecuteDatasourceQuery;
 import de.jebc.ebc.impl.Board;
 
 public class ReadBaseAddressInformationFromDatasource extends Board {

@@ -1,12 +1,10 @@
-package de.jebc.ebc.addressbook.data.jdbc;
+package de.jebc.ebc.addressbook.data;
 
 import java.sql.Connection;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.QueryOutPin;
-import de.jebc.ebc.addressbook.data.Query;
-import de.jebc.ebc.addressbook.data.Resultset;
 
 public interface ExecuteDatasourceQuery {
 

@@ -4,7 +4,7 @@ import javax.swing.tree.TreeModel;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
-import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasourceQuery;
+import de.jebc.ebc.addressbook.data.ExecuteDatasourceQuery;
 import de.jebc.ebc.addressbook.domain.ConvertAddressesIntoTreeStructure;
 import de.jebc.ebc.impl.Board;
 

@@ -8,6 +8,7 @@ import java.sql.Statement;
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.QueryOutPin;
+import de.jebc.ebc.addressbook.data.ExecuteDatasourceQuery;
 import de.jebc.ebc.addressbook.data.Query;
 import de.jebc.ebc.addressbook.data.Resultset;
 import de.jebc.ebc.impl.QueryPinImpl;
