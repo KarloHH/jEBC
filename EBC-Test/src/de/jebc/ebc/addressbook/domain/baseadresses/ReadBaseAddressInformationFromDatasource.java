@@ -10,12 +10,13 @@ import de.jebc.ebc.addressbook.data.ExecuteDatasourceQuery;
 import de.jebc.ebc.impl.Board;
 
 public class ReadBaseAddressInformationFromDatasource extends Board {
-    
+
     private InPin<Object> startPin;
     private QueryOutPin<Object, Connection> connectionPin;
     private OutPin<List<BaseAddressData>> resultPin;
 
-    public ReadBaseAddressInformationFromDatasource(ExecuteDatasourceQuery datasource) {
+    public ReadBaseAddressInformationFromDatasource(
+            ExecuteDatasourceQuery datasource) {
         GenerateQueryForAllBaseAdresses generateQuery = new GenerateQueryForAllBaseAdresses();
         ExecuteDatasourceQuery execute = datasource;
         GenerateBaseAddressDTOs generateDTOs = new GenerateBaseAddressDTOs();
@@ -26,15 +27,15 @@ public class ReadBaseAddressInformationFromDatasource extends Board {
         connect(execute.Result(), generateDTOs.start());
         resultPin = extend(generateDTOs.addresses());
     }
-    
+
     public InPin<Object> start() {
         return startPin;
     }
-    
+
     public QueryOutPin<Object, Connection> connection() {
         return connectionPin;
     }
-    
+
     public OutPin<List<BaseAddressData>> result() {
         return resultPin;
     }

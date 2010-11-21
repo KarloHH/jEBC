@@ -9,7 +9,7 @@ public abstract class LogWarnQuery<T1, T2> extends AbstractLogQuery<T1, T2> {
     public LogWarnQuery(Logger log) {
         super(log);
     }
-    
+
     @Override
     protected boolean enabled() {
         return log.isWarnEnabled();

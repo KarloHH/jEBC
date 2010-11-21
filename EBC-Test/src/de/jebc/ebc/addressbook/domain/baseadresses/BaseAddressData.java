@@ -20,8 +20,7 @@ public class BaseAddressData {
         return name;
     }
 
-    public BaseAddressData(int id, AddressCategory category,
-            String name) {
+    public BaseAddressData(int id, AddressCategory category, String name) {
         this.id = id;
         this.category = category;
         this.name = name;

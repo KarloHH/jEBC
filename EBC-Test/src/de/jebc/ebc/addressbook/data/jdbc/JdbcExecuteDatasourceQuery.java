@@ -53,7 +53,9 @@ public class JdbcExecuteDatasourceQuery implements ExecuteDatasourceQuery {
         }
     };
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasourceQuery#Result()
      */
     @Override
@@ -61,15 +63,20 @@ public class JdbcExecuteDatasourceQuery implements ExecuteDatasourceQuery {
         return resultPin;
     }
 
-    /* (non-Javadoc)
-     * @see de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasourceQuery#GetConnection()
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasourceQuery#GetConnection()
      */
     @Override
     public QueryOutPin<Object, Connection> GetConnection() {
         return connectionQuery;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasourceQuery#Query()
      */
     @Override

@@ -9,7 +9,7 @@ public abstract class LogInfoQuery<T1, T2> extends AbstractLogQuery<T1, T2> {
     public LogInfoQuery(Logger log) {
         super(log);
     }
-    
+
     @Override
     protected boolean enabled() {
         return log.isInfoEnabled();

@@ -14,11 +14,12 @@ public class TestGenerateQueryForAllBaseAddresses {
     protected boolean queried = false;
     protected Query result = null;
 
-    @Test public void query() {
+    @Test
+    public void query() {
 
         GenerateQueryForAllBaseAdresses sut = new GenerateQueryForAllBaseAdresses();
         sut.accessDatasource().connect(new InPin<Query>() {
-            
+
             @Override
             public void receive(Query message) {
                 result = message;
@@ -26,7 +27,7 @@ public class TestGenerateQueryForAllBaseAddresses {
             }
         });
         sut.start().receive(null);
-        
+
         assertTrue(queried);
         assertEquals("Adressen", result.getViewname());
         assertEquals(4, result.getColumns().length);

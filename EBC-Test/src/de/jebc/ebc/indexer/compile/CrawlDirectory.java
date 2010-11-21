@@ -34,7 +34,7 @@ public class CrawlDirectory {
         ArrayList<String> list = new ArrayList<String>();
         File dir = new File(rootDirectory);
         list.addAll(parseDirectory(dir));
-//        Out().transmit(list.);
+        // Out().transmit(list.);
     }
 
     private Collection<? extends String> parseDirectory(File dir) {
@@ -49,7 +49,7 @@ public class CrawlDirectory {
     }
 
     private Collection<? extends String> getFilesFromSubdir(File file) {
-		return null;
+        return null;
     }
 
     private ArrayList<String> getListOfTextfiles(File dir) {
@@ -65,7 +65,7 @@ public class CrawlDirectory {
 
     private File[] getSubdirs(File dir) {
         return dir.listFiles(new FileFilter() {
-            
+
             @Override
             public boolean accept(File arg0) {
                 return arg0.isDirectory();

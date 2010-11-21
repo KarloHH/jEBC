@@ -6,13 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class JdbcResultsetFacade implements Resultset {
-    
+
     private final ResultSet rs;
 
     public JdbcResultsetFacade(ResultSet rs) {
         this.rs = rs;
     }
-    
+
     @Override
     public boolean next() throws DataException {
         try {
@@ -39,6 +39,5 @@ public class JdbcResultsetFacade implements Resultset {
             throw new DataException(e);
         }
     }
-
 
 }

@@ -13,10 +13,10 @@ public class Query {
     public String getViewname() {
         return viewname;
     }
-    
+
     public String[] getColumns() {
         return columns;
-        
+
     }
 
 }

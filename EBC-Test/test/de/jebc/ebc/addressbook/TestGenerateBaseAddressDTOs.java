@@ -15,16 +15,17 @@ public class TestGenerateBaseAddressDTOs {
 
     protected List<BaseAddressData> result;
 
-    @Test public void generate() {
-        
+    @Test
+    public void generate() {
+
         Resultset data = createResultset();
         GenerateBaseAddressDTOs sut = new GenerateBaseAddressDTOs();
         sut.addresses().connect(new InPin<List<BaseAddressData>>() {
-            
+
             @Override
             public void receive(List<BaseAddressData> message) {
                 result = message;
-                
+
             }
         });
         sut.start().receive(data);
@@ -33,13 +34,10 @@ public class TestGenerateBaseAddressDTOs {
     }
 
     private Resultset createResultset() {
-        return new ResultsetImplForTesting(new String[]{
-                "ID", "Category", "GivenName", "Name"
-        }, 
-        new Object[][]{
-                new Object[]{1, "Büro", "VN1", "NM1"},
-                new Object[]{2, "Privat", "VN2", "NM2"},
-                new Object[]{3, "Büro", "VN3", "NM3"}
-        });
+        return new ResultsetImplForTesting(new String[] { "ID", "Category",
+                "GivenName", "Name" }, new Object[][] {
+                new Object[] { 1, "Büro", "VN1", "NM1" },
+                new Object[] { 2, "Privat", "VN2", "NM2" },
+                new Object[] { 3, "Büro", "VN3", "NM3" } });
     }
 }

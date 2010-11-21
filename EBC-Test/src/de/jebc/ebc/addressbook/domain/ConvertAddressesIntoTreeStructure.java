@@ -23,9 +23,9 @@ public class ConvertAddressesIntoTreeStructure {
     }
 
     public InPin<List<BaseAddressData>> convert() {
-        if (inPin==null) {
+        if (inPin == null) {
             inPin = new InPin<List<BaseAddressData>>() {
-                
+
                 @Override
                 public void receive(List<BaseAddressData> message) {
                     TreeModel tree = convertListToTree(message);
@@ -37,18 +37,21 @@ public class ConvertAddressesIntoTreeStructure {
     }
 
     protected TreeModel convertListToTree(List<BaseAddressData> message) {
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("All Addresses");
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(
+                "All Addresses");
         DefaultTreeModel tree = new DefaultTreeModel(root);
         Map<AddressCategory, DefaultMutableTreeNode> categoryNodes = new HashMap<AddressCategory, DefaultMutableTreeNode>();
         //
         for (BaseAddressData addressData : message) {
             AddressCategory category = addressData.getCategory();
             if (!categoryNodes.containsKey(category)) {
-                DefaultMutableTreeNode node = new DefaultMutableTreeNode(category);
+                DefaultMutableTreeNode node = new DefaultMutableTreeNode(
+                        category);
                 tree.insertNodeInto(node, root, tree.getChildCount(root));
                 categoryNodes.put(category, node);
             }
-            DefaultMutableTreeNode node = new DefaultMutableTreeNode(addressData);
+            DefaultMutableTreeNode node = new DefaultMutableTreeNode(
+                    addressData);
             DefaultMutableTreeNode parent = categoryNodes.get(category);
             tree.insertNodeInto(node, parent, tree.getChildCount(parent));
         }

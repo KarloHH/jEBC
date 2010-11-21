@@ -52,8 +52,7 @@ public class TestExecuteDatasourceQuery {
 
     private Connection getConnection() throws Exception {
         Class.forName("org.sqlite.JDBC");
-        Connection conn =
-          DriverManager.getConnection("jdbc:sqlite::memory:");
+        Connection conn = DriverManager.getConnection("jdbc:sqlite::memory:");
         Statement stmt = conn.createStatement();
         stmt.executeUpdate("CREATE TABLE Adressen (ID INTEGER, Name TEXT);");
         stmt.executeUpdate("INSERT INTO Adressen VALUES (1, 'Name')");

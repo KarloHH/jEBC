@@ -7,7 +7,7 @@ public class ResultsetImplForTesting implements Resultset {
     private String[] columnNames;
     private Object[][] rows;
     private int rowIndex;
-    
+
     public ResultsetImplForTesting(String[] columnNames, Object[][] rows) {
         this.columnNames = columnNames;
         this.rows = rows;

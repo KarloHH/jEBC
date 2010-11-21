@@ -36,6 +36,5 @@ public class AddressCategory {
     public String getName() {
         return name;
     }
-    
-    
+
 }

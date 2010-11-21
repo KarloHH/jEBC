@@ -14,7 +14,7 @@ public abstract class LogDebugQuery<T1, T2> extends AbstractLogQuery<T1, T2> {
     protected boolean enabled() {
         return log.isDebugEnabled();
     }
-    
+
     @Override
     protected void log(String text) {
         log.debug(text);

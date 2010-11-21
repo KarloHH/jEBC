@@ -13,7 +13,8 @@ import de.jebc.logging.query.LogDebugQuery;
 
 public class ConvertStringToUppercaseBoard extends Board {
 
-	private Logger log = LoggerFactory.getLogger(ConvertStringToUppercaseBoard.class);
+    private Logger log = LoggerFactory
+            .getLogger(ConvertStringToUppercaseBoard.class);
     private QueryInPin<String, String> request;
 
     public QueryInPin<String, String> request() {
@@ -27,13 +28,14 @@ public class ConvertStringToUppercaseBoard extends Board {
 
         QueryMonitor<String, String> loggerBehindCache = getBehindCacheLogger();
         QueryMonitor<String, String> loggerFrontCache = getFrontCacheLogger();
-        
+
         // extend the open pins to the outside
         connect(loggerFrontCache.out(), cache.get());
         request = extend(loggerFrontCache.in());
 
         // plumbing the echo board
-        monitor(cache.request(), join(upcase.in(), upcase.out()), with(loggerBehindCache));
+        monitor(cache.request(), join(upcase.in(), upcase.out()),
+                with(loggerBehindCache));
     }
 
     private QueryMonitor<String, String> getBehindCacheLogger() {
@@ -50,6 +52,7 @@ public class ConvertStringToUppercaseBoard extends Board {
             }
         };
     }
+
     private QueryMonitor<String, String> getFrontCacheLogger() {
         return new LogDebugQuery<String, String>(log) {
 

@@ -14,7 +14,7 @@ public abstract class LogErrorQuery<T1, T2> extends AbstractLogQuery<T1, T2> {
     protected boolean enabled() {
         return log.isErrorEnabled();
     }
-    
+
     @Override
     protected void log(String text) {
         log.error(text);
