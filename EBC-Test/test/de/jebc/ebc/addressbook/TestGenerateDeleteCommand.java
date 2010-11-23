@@ -31,7 +31,7 @@ public class TestGenerateDeleteCommand {
 
         GenerateDeleteCommand sut = new GenerateDeleteCommand();
 
-        sut.out().connect(new InPin<Object>() {
+        sut.Result().connect(new InPin<Object>() {
 
             @Override
             public void receive(Object message) {
@@ -39,7 +39,7 @@ public class TestGenerateDeleteCommand {
             }
         });
 
-        sut.connection().connect(new QueryInPin<Object, Connection>() {
+        sut.Connection().connect(new QueryInPin<Object, Connection>() {
 
             @Override
             public void receive(Object message, InPin<Connection> response) {
@@ -47,7 +47,7 @@ public class TestGenerateDeleteCommand {
             }
         });
 
-        sut.delete().receive(address);
+        sut.Start().receive(address);
 
         assertTrue(done);
         assertTrue(addressDeleted());

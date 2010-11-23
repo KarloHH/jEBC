@@ -20,7 +20,7 @@ public class TestGenerateBaseAddressDTOs {
 
         Resultset data = createResultset();
         GenerateBaseAddressDTOs sut = new GenerateBaseAddressDTOs();
-        sut.addresses().connect(new InPin<List<BaseAddressData>>() {
+        sut.Result().connect(new InPin<List<BaseAddressData>>() {
 
             @Override
             public void receive(List<BaseAddressData> message) {
@@ -28,7 +28,7 @@ public class TestGenerateBaseAddressDTOs {
 
             }
         });
-        sut.start().receive(data);
+        sut.Start().receive(data);
         assertEquals(3, result.size());
         assertEquals("NM1, VN1", result.get(0).getName());
     }

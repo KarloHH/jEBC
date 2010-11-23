@@ -41,9 +41,9 @@ public class TestConvertAddressListIntoTreeStructure {
             }
 
         };
-        sut.tree().connect(pin);
+        sut.Result().connect(pin);
 
-        sut.convert().receive(input);
+        sut.Start().receive(input);
 
         assertEquals(2, result.getChildCount(result.getRoot()));
         Object node1 = result.getChild(result.getRoot(), 0);

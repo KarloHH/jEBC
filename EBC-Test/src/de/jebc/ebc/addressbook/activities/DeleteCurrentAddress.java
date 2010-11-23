@@ -23,8 +23,8 @@ public class DeleteCurrentAddress extends Board {
         delete = new GenerateDeleteCommand();
         display = new DisplayTreeOfAllAdresses(query);
 
-        connect(delete.out(), display.start());
-        connect(delete.connection(), connectionPin.in());
+        connect(delete.Result(), display.start());
+        connect(delete.Connection(), connectionPin.in());
         connect(display.connection(), connectionPin.in());
     }
     
@@ -33,7 +33,7 @@ public class DeleteCurrentAddress extends Board {
     }
     
     public InPin<BaseAddressData> in() {
-        return delete.delete();
+        return delete.Start();
     }
     
     public OutPin<TreeModel> tree() {

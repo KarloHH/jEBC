@@ -35,7 +35,7 @@ public class TestExecuteDatasourceQuery {
             }
         });
 
-        sut.GetConnection().connect(new QueryInPin<Object, Connection>() {
+        sut.Connection().connect(new QueryInPin<Object, Connection>() {
 
             @Override
             public void receive(Object message, InPin<Connection> response) {
@@ -43,7 +43,7 @@ public class TestExecuteDatasourceQuery {
             }
         });
 
-        sut.Query().receive(query);
+        sut.Start().receive(query);
 
         assertTrue(result.next());
         assertEquals(1, result.getInt("ID"));

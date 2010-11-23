@@ -1,27 +1,12 @@
 package de.jebc.ebc.addressbook.domain.baseadresses;
 
-import de.jebc.ebc.InPin;
-import de.jebc.ebc.OutPin;
 import de.jebc.ebc.addressbook.data.Query;
-import de.jebc.ebc.impl.SingleOutPin;
+import de.jebc.ebc.impl.ProcessImpl;
 
-public class GenerateQueryForAllBaseAdresses {
+public class GenerateQueryForAllBaseAdresses extends ProcessImpl<Object, Query> {
 
-    private InPin<Object> trigger = new InPin<Object>() {
-
-        @Override
-        public void receive(Object message) {
-            Query queryCommand = new Query("SELECT ID, Category, Name, GivenName FROM Adressen");
-            accessDatasource().send(queryCommand);
-        }
-    };
-    private OutPin<Query> outQuery = new SingleOutPin<Query>();
-
-    public InPin<Object> start() {
-        return trigger;
-    }
-
-    public OutPin<Query> accessDatasource() {
-        return outQuery;
+    protected void process(Object dummy) {
+        Query queryCommand = new Query("SELECT ID, Category, Name, GivenName FROM Adressen");
+        Result().send(queryCommand);
     }
 }

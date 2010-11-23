@@ -21,20 +21,20 @@ public class ReadBaseAddressInformationFromDatasource extends Board {
         execute = datasource;
         generateDTOs = new GenerateBaseAddressDTOs();
         //
-        connect(generateQuery.accessDatasource(), execute.Query());
-        connect(execute.Result(), generateDTOs.start());
+        connect(generateQuery.Result(), execute.Start());
+        connect(execute.Result(), generateDTOs.Start());
     }
 
-    public InPin<Object> start() {
-        return generateQuery.start();
+    public InPin<Object> Start() {
+        return generateQuery.Start();
     }
 
-    public QueryOutPin<Object, Connection> connection() {
-        return execute.GetConnection();
+    public QueryOutPin<Object, Connection> Connection() {
+        return execute.Connection();
     }
 
-    public OutPin<List<BaseAddressData>> result() {
-        return generateDTOs.addresses();
+    public OutPin<List<BaseAddressData>> Result() {
+        return generateDTOs.Result();
     }
 
 }

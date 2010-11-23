@@ -22,18 +22,18 @@ public class DisplayTreeOfAllAdresses extends Board {
                 datasource);
         convert = new ConvertAddressesIntoTreeStructure();
         //
-        connect(read.result(), convert.convert());
+        connect(read.Result(), convert.Start());
     }
 
     public InPin<Object> start() {
-        return read.start();
+        return read.Start();
     }
 
     public OutPin<TreeModel> tree() {
-        return convert.tree();
+        return convert.Result();
     }
 
     public QueryOutPin<Object, Connection> connection() {
-        return read.connection();
+        return read.Connection();
     }
 }

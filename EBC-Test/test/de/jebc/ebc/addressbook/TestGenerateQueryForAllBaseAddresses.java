@@ -17,7 +17,7 @@ public class TestGenerateQueryForAllBaseAddresses {
     public void query() {
 
         GenerateQueryForAllBaseAdresses sut = new GenerateQueryForAllBaseAdresses();
-        sut.accessDatasource().connect(new InPin<Query>() {
+        sut.Result().connect(new InPin<Query>() {
 
             @Override
             public void receive(Query message) {
@@ -25,7 +25,7 @@ public class TestGenerateQueryForAllBaseAddresses {
                 queried = true;
             }
         });
-        sut.start().receive(null);
+        sut.Start().receive(null);
 
         assertTrue(queried);
     }

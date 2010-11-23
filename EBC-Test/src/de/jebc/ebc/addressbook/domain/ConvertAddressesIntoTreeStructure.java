@@ -8,35 +8,17 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
 
-import de.jebc.ebc.InPin;
-import de.jebc.ebc.OutPin;
 import de.jebc.ebc.addressbook.domain.baseadresses.BaseAddressData;
-import de.jebc.ebc.impl.SingleOutPin;
+import de.jebc.ebc.impl.ProcessImpl;
 
-public class ConvertAddressesIntoTreeStructure {
+public class ConvertAddressesIntoTreeStructure extends ProcessImpl<List<BaseAddressData>, TreeModel> {
 
-    private OutPin<TreeModel> outPin = new SingleOutPin<TreeModel>();
-    private InPin<List<BaseAddressData>> inPin;
-
-    public OutPin<TreeModel> tree() {
-        return outPin;
+    protected void process(List<BaseAddressData> message) {
+        TreeModel tree = convertListToTree(message);
+        Result().send(tree);
     }
 
-    public InPin<List<BaseAddressData>> convert() {
-        if (inPin == null) {
-            inPin = new InPin<List<BaseAddressData>>() {
-
-                @Override
-                public void receive(List<BaseAddressData> message) {
-                    TreeModel tree = convertListToTree(message);
-                    tree().send(tree);
-                }
-            };
-        }
-        return inPin;
-    }
-
-    protected TreeModel convertListToTree(List<BaseAddressData> message) {
+    private TreeModel convertListToTree(List<BaseAddressData> message) {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode(
                 "All Addresses");
         DefaultTreeModel tree = new DefaultTreeModel(root);

@@ -23,19 +23,19 @@ public class DisplayAddressDetails extends Board {
         query = new GenerateQueryForAddress();
         generate = new GenerateAddressDTO();
         
-        connect(query.accessDatasource(), datasource.Query());
-        connect(datasource.Result(), generate.start());
+        connect(query.Result(), datasource.Start());
+        connect(datasource.Result(), generate.Start());
     }
 
     public InPin<BaseAddressData> start() {
-        return query.start();
+        return query.Start();
     }
 
     public OutPin<Address> result() {
-        return generate.result();
+        return generate.Result();
     }
     
     public QueryOutPin<Object, Connection> Connection() {
-        return datasource.GetConnection();
+        return datasource.Connection();
     }
 }
