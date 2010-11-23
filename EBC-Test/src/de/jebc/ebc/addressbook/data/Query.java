@@ -2,21 +2,13 @@ package de.jebc.ebc.addressbook.data;
 
 public class Query {
 
-    private final String viewname;
-    private final String[] columns;
+    private final String command;
 
-    public Query(String viewname, String[] columns) {
-        this.viewname = viewname;
-        this.columns = columns;
+    public Query(String command) {
+        this.command = command;
     }
 
-    public String getViewname() {
-        return viewname;
+    public String getCommand() {
+        return command;
     }
-
-    public String[] getColumns() {
-        return columns;
-
-    }
-
 }

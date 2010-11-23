@@ -40,14 +40,7 @@ public class JdbcExecuteDatasourceQuery implements ExecuteDatasourceQuery {
                 }
 
                 private String generateCommand(Query query) {
-                    StringBuilder sb = new StringBuilder("SELECT ");
-                    String[] columns = query.getColumns();
-                    sb.append(columns[0]);
-                    for (int i = 1; i < columns.length; i++) {
-                        sb.append(", ").append(columns[i]);
-                    }
-                    sb.append(" FROM ").append(query.getViewname());
-                    return sb.toString();
+                    return query.getCommand();
                 }
             });
         }

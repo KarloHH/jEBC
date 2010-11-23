@@ -1,7 +1,6 @@
 package de.jebc.ebc.addressbook;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -29,8 +28,6 @@ public class TestGenerateQueryForAllBaseAddresses {
         sut.start().receive(null);
 
         assertTrue(queried);
-        assertEquals("Adressen", result.getViewname());
-        assertEquals(4, result.getColumns().length);
     }
 
 }

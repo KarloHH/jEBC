@@ -11,8 +11,7 @@ public class GenerateQueryForAllBaseAdresses {
 
         @Override
         public void receive(Object message) {
-            Query queryCommand = new Query("Adressen", new String[] { "ID",
-                    "Category", "Name", "GivenName" });
+            Query queryCommand = new Query("SELECT ID, Category, Name, GivenName FROM Adressen");
             accessDatasource().send(queryCommand);
         }
     };

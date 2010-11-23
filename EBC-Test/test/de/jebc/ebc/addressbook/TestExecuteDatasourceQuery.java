@@ -23,7 +23,7 @@ public class TestExecuteDatasourceQuery {
     public void query() throws Exception {
 
         final Connection conn = getConnection();
-        Query query = new Query("Adressen", new String[] { "ID", "Name" });
+        Query query = new Query("SELECT ID, Name FROM Adressen");
 
         ExecuteDatasourceQuery sut = new JdbcExecuteDatasourceQuery();
 
