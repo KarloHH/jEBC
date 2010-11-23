@@ -11,16 +11,15 @@ import de.jebc.ebc.indexer.IndexerData;
 
 public class CompileFiles extends Board {
 
-    private InPin<IndexerData> in;
-    private OutPin<String> indexFilename;
     private OutPin<Enumeration<String>> textFilenames = new SingleOutPin<Enumeration<String>>();
+    private Splitter<IndexerData, String, String> split;
 
     public InPin<IndexerData> in() {
-        return in;
+        return split.in();
     }
 
     public OutPin<String> indexFilename() {
-        return indexFilename;
+        return split.out2();
     }
 
     public OutPin<Enumeration<String>> textFilenames() {
@@ -28,11 +27,9 @@ public class CompileFiles extends Board {
     }
 
     public CompileFiles() {
-        Splitter<IndexerData, String, String> split = createSplitter();
+        split = createSplitter();
         CrawlDirectory crawler = new CrawlDirectory();
 
-        in = extend(split.in());
-        indexFilename = extend(split.out2());
         connect(split.out1(), with(crawler.in()));
     }
 

@@ -15,10 +15,10 @@ public class ConvertStringToUppercaseBoard extends Board {
 
     private Logger log = LoggerFactory
             .getLogger(ConvertStringToUppercaseBoard.class);
-    private QueryInPin<String, String> request;
+    private QueryMonitor<String, String> loggerFrontCache;
 
     public QueryInPin<String, String> request() {
-        return request;
+        return loggerFrontCache.in();
     }
 
     public ConvertStringToUppercaseBoard() {
@@ -27,11 +27,10 @@ public class ConvertStringToUppercaseBoard extends Board {
         Cache<String, String> cache = new ReadonlyCache<String, String>();
 
         QueryMonitor<String, String> loggerBehindCache = getBehindCacheLogger();
-        QueryMonitor<String, String> loggerFrontCache = getFrontCacheLogger();
+        loggerFrontCache = getFrontCacheLogger();
 
         // extend the open pins to the outside
         connect(loggerFrontCache.out(), cache.get());
-        request = extend(loggerFrontCache.in());
 
         // plumbing the echo board
         monitor(cache.request(), join(upcase.in(), upcase.out()),

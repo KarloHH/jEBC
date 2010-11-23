@@ -11,33 +11,30 @@ import de.jebc.ebc.impl.Board;
 
 public class ReadBaseAddressInformationFromDatasource extends Board {
 
-    private InPin<Object> startPin;
-    private QueryOutPin<Object, Connection> connectionPin;
-    private OutPin<List<BaseAddressData>> resultPin;
+    private GenerateQueryForAllBaseAdresses generateQuery;
+    private ExecuteDatasourceQuery execute;
+    private GenerateBaseAddressDTOs generateDTOs;
 
     public ReadBaseAddressInformationFromDatasource(
             ExecuteDatasourceQuery datasource) {
-        GenerateQueryForAllBaseAdresses generateQuery = new GenerateQueryForAllBaseAdresses();
-        ExecuteDatasourceQuery execute = datasource;
-        GenerateBaseAddressDTOs generateDTOs = new GenerateBaseAddressDTOs();
+        generateQuery = new GenerateQueryForAllBaseAdresses();
+        execute = datasource;
+        generateDTOs = new GenerateBaseAddressDTOs();
         //
-        startPin = extend(generateQuery.start());
         connect(generateQuery.accessDatasource(), execute.Query());
-        connectionPin = extend(execute.GetConnection());
         connect(execute.Result(), generateDTOs.start());
-        resultPin = extend(generateDTOs.addresses());
     }
 
     public InPin<Object> start() {
-        return startPin;
+        return generateQuery.start();
     }
 
     public QueryOutPin<Object, Connection> connection() {
-        return connectionPin;
+        return execute.GetConnection();
     }
 
     public OutPin<List<BaseAddressData>> result() {
-        return resultPin;
+        return generateDTOs.addresses();
     }
 
 }

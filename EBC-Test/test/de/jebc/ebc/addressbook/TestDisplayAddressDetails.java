@@ -1,6 +1,6 @@
 package de.jebc.ebc.addressbook;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +11,6 @@ import org.junit.Test;
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.QueryInPin;
 import de.jebc.ebc.addressbook.activities.DisplayAddressDetails;
-import de.jebc.ebc.addressbook.data.ExecuteDatasourceQuery;
 import de.jebc.ebc.addressbook.data.jdbc.JdbcExecuteDatasourceQuery;
 import de.jebc.ebc.addressbook.domain.AddressCategory;
 import de.jebc.ebc.addressbook.domain.addressdetails.Address;

@@ -14,30 +14,26 @@ import de.jebc.ebc.impl.Board;
 
 public class DisplayTreeOfAllAdresses extends Board {
 
-    private InPin<Object> startPin;
-    private OutPin<TreeModel> treePin;
-    private QueryOutPin<Object, Connection> connectionPin;
+    private ReadBaseAddressInformationFromDatasource read;
+    private ConvertAddressesIntoTreeStructure convert;
 
     public DisplayTreeOfAllAdresses(ExecuteDatasourceQuery datasource) {
-        ReadBaseAddressInformationFromDatasource read = new ReadBaseAddressInformationFromDatasource(
+        read = new ReadBaseAddressInformationFromDatasource(
                 datasource);
-        ConvertAddressesIntoTreeStructure convert = new ConvertAddressesIntoTreeStructure();
+        convert = new ConvertAddressesIntoTreeStructure();
         //
-        startPin = extend(read.start());
         connect(read.result(), convert.convert());
-        treePin = extend(convert.tree());
-        connectionPin = extend(read.connection());
     }
 
     public InPin<Object> start() {
-        return startPin;
+        return read.start();
     }
 
     public OutPin<TreeModel> tree() {
-        return treePin;
+        return convert.tree();
     }
 
     public QueryOutPin<Object, Connection> connection() {
-        return connectionPin;
+        return read.connection();
     }
 }
