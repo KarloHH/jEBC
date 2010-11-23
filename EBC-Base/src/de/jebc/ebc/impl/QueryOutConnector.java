@@ -1,8 +1,7 @@
-package de.jebc.ebc.addressbook.activities;
+package de.jebc.ebc.impl;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.QueryInPin;
-import de.jebc.ebc.impl.QueryPinImpl;
 
 public class QueryOutConnector<T1, T2> extends QueryPinImpl<T1, T2> {
 

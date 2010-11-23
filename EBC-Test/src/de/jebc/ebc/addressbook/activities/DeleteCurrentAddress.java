@@ -11,6 +11,7 @@ import de.jebc.ebc.addressbook.data.ExecuteDatasourceQuery;
 import de.jebc.ebc.addressbook.domain.baseadresses.BaseAddressData;
 import de.jebc.ebc.addressbook.domain.deleteaddress.GenerateDeleteCommand;
 import de.jebc.ebc.impl.Board;
+import de.jebc.ebc.impl.QueryOutConnector;
 
 public class DeleteCurrentAddress extends Board {
 
