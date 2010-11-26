@@ -1,4 +1,4 @@
-package de.jebc.ebc.addressbook;
+package de.jebc.ebc.addressbook.activities;
 
 import java.sql.Connection;
 
@@ -7,6 +7,7 @@ import de.jebc.ebc.OutPin;
 import de.jebc.ebc.QueryOutPin;
 import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasource;
 import de.jebc.ebc.addressbook.domain.addressdetails.Address;
+import de.jebc.ebc.addressbook.domain.savenewaddress.GenerateInsertCommand;
 import de.jebc.ebc.impl.Board;
 import de.jebc.ebc.impl.Joiner;
 import de.jebc.ebc.impl.PinBroadcast;

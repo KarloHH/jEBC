@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.QueryInPin;
+import de.jebc.ebc.addressbook.activities.SaveNewAddressData;
 import de.jebc.ebc.addressbook.data.jdbc.JdbcExecuteDatasourceQuery;
 import de.jebc.ebc.addressbook.domain.AddressCategory;
 import de.jebc.ebc.addressbook.domain.addressdetails.Address;

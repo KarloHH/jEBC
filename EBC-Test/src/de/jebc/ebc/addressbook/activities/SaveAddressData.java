@@ -1,10 +1,11 @@
-package de.jebc.ebc.addressbook;
+package de.jebc.ebc.addressbook.activities;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.QueryOutPin;
 import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasource;
 import de.jebc.ebc.addressbook.domain.addressdetails.Address;
+import de.jebc.ebc.addressbook.domain.saveaddress.GenerateUpdateQuery;
 import de.jebc.ebc.impl.Board;
 
 public class SaveAddressData extends Board {

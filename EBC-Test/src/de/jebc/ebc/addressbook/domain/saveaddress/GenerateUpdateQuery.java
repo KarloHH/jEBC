@@ -1,4 +1,4 @@
-package de.jebc.ebc.addressbook;
+package de.jebc.ebc.addressbook.domain.saveaddress;
 
 import de.jebc.ebc.addressbook.data.Query;
 import de.jebc.ebc.addressbook.domain.addressdetails.Address;
