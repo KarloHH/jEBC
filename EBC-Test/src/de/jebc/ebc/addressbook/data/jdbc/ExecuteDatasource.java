@@ -19,4 +19,8 @@ public interface ExecuteDatasource {
     public abstract InPin<Query> StartCommand();
     
     public abstract OutPin<Object> CommandDone();
+
+    public abstract InPin<Query> StartIdentity();
+
+    public abstract OutPin<Integer> ResultIdentity();
 }

@@ -32,6 +32,14 @@ public class JdbcExecuteDatasourceQuery implements ExecuteDatasource {
         }
     };
     private OutPin<Object> commandDonePin = new SingleOutPin<Object>();
+    private InPin<Query> startIdentityPin = new InPin<Query>() {
+
+        @Override
+        public void receive(Query message) {
+            processIdentity(message);
+        }
+    };
+    private OutPin<Integer> resultIdentityPin = new SingleOutPin<Integer>();
 
     private void processQuery(final Query query) {
         connectionQuery.send(null, new InPin<Connection>() {
@@ -49,6 +57,31 @@ public class JdbcExecuteDatasourceQuery implements ExecuteDatasource {
                 }
                 Resultset result = new JdbcResultsetFacade(rs);
                 ResultQuery().send(result);
+            }
+
+        });
+    }
+
+    protected void processIdentity(final Query query) {
+        connectionQuery.send(null, new InPin<Connection>() {
+
+            @Override
+            public void receive(Connection conn) {
+                String command = generateCommand(query);
+                ResultSet rs = null;
+                int result = 0;
+                try {
+                    Statement stmt = conn.createStatement();
+                    stmt.execute(command);
+                    rs = stmt.getGeneratedKeys();
+                    while(rs.next()) {
+                        result = rs.getInt(1);
+                    }
+                } catch (SQLException e) {
+                    // TODO exception handling
+                    e.printStackTrace();
+                }
+                ResultIdentity().send(result);
             }
 
         });
@@ -99,6 +132,16 @@ public class JdbcExecuteDatasourceQuery implements ExecuteDatasource {
     @Override
     public OutPin<Object> CommandDone() {
         return commandDonePin;
+    }
+
+    @Override
+    public InPin<Query> StartIdentity() {
+        return startIdentityPin;
+    }
+
+    @Override
+    public OutPin<Integer> ResultIdentity() {
+        return resultIdentityPin;
     }
 
 }
