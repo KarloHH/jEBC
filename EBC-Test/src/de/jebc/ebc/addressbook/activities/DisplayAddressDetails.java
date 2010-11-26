@@ -5,7 +5,7 @@ import java.sql.Connection;
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.QueryOutPin;
-import de.jebc.ebc.addressbook.data.ExecuteDatasourceQuery;
+import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasource;
 import de.jebc.ebc.addressbook.domain.addressdetails.Address;
 import de.jebc.ebc.addressbook.domain.addressdetails.GenerateAddressDTO;
 import de.jebc.ebc.addressbook.domain.addressdetails.GenerateQueryForAddress;
@@ -16,15 +16,15 @@ public class DisplayAddressDetails extends Board {
 
     private GenerateQueryForAddress query;
     private GenerateAddressDTO generate;
-    private final ExecuteDatasourceQuery datasource;
+    private final ExecuteDatasource datasource;
 
-    public DisplayAddressDetails(ExecuteDatasourceQuery datasource) {
+    public DisplayAddressDetails(ExecuteDatasource datasource) {
         this.datasource = datasource;
         query = new GenerateQueryForAddress();
         generate = new GenerateAddressDTO();
 
-        connect(query.Result(), datasource.Start());
-        connect(datasource.Result(), generate.Start());
+        connect(query.Result(), datasource.StartQuery());
+        connect(datasource.ResultQuery(), generate.Start());
     }
 
     public InPin<BaseAddressData> start() {

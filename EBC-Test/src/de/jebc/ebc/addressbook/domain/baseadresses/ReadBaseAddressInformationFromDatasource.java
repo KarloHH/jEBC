@@ -6,23 +6,23 @@ import java.util.List;
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.QueryOutPin;
-import de.jebc.ebc.addressbook.data.ExecuteDatasourceQuery;
+import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasource;
 import de.jebc.ebc.impl.Board;
 
 public class ReadBaseAddressInformationFromDatasource extends Board {
 
     private GenerateQueryForAllBaseAdresses generateQuery;
-    private ExecuteDatasourceQuery execute;
+    private ExecuteDatasource execute;
     private GenerateBaseAddressDTOs generateDTOs;
 
     public ReadBaseAddressInformationFromDatasource(
-            ExecuteDatasourceQuery datasource) {
+            ExecuteDatasource datasource) {
         generateQuery = new GenerateQueryForAllBaseAdresses();
         execute = datasource;
         generateDTOs = new GenerateBaseAddressDTOs();
         //
-        connect(generateQuery.Result(), execute.Start());
-        connect(execute.Result(), generateDTOs.Start());
+        connect(generateQuery.Result(), execute.StartQuery());
+        connect(execute.ResultQuery(), generateDTOs.Start());
     }
 
     public InPin<Object> Start() {

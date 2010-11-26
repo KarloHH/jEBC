@@ -11,11 +11,13 @@ import org.junit.Test;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.QueryInPin;
+import de.jebc.ebc.addressbook.data.jdbc.JdbcExecuteDatasourceQuery;
 import de.jebc.ebc.addressbook.domain.AddressCategory;
 import de.jebc.ebc.addressbook.domain.baseadresses.BaseAddressData;
+import de.jebc.ebc.addressbook.domain.deleteaddress.DeleteAddressFromDatasource;
 import de.jebc.ebc.addressbook.domain.deleteaddress.GenerateDeleteCommand;
 
-public class TestGenerateDeleteCommand {
+public class TestDeleteAddressFromDatasource {
 
     private Connection conn;
     private boolean done;
@@ -29,7 +31,7 @@ public class TestGenerateDeleteCommand {
                 new AddressCategory(""), "");
         done = false;
 
-        GenerateDeleteCommand sut = new GenerateDeleteCommand();
+        DeleteAddressFromDatasource sut = new DeleteAddressFromDatasource(new JdbcExecuteDatasourceQuery());
 
         sut.Result().connect(new InPin<Object>() {
 

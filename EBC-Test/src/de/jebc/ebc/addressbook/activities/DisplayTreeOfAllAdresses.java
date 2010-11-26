@@ -7,7 +7,7 @@ import javax.swing.tree.TreeModel;
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.QueryOutPin;
-import de.jebc.ebc.addressbook.data.ExecuteDatasourceQuery;
+import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasource;
 import de.jebc.ebc.addressbook.domain.ConvertAddressesIntoTreeStructure;
 import de.jebc.ebc.addressbook.domain.baseadresses.ReadBaseAddressInformationFromDatasource;
 import de.jebc.ebc.impl.Board;
@@ -17,7 +17,7 @@ public class DisplayTreeOfAllAdresses extends Board {
     private ReadBaseAddressInformationFromDatasource read;
     private ConvertAddressesIntoTreeStructure convert;
 
-    public DisplayTreeOfAllAdresses(ExecuteDatasourceQuery datasource) {
+    public DisplayTreeOfAllAdresses(ExecuteDatasource datasource) {
         read = new ReadBaseAddressInformationFromDatasource(datasource);
         convert = new ConvertAddressesIntoTreeStructure();
         //
