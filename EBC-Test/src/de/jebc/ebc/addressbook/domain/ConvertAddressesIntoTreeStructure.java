@@ -11,8 +11,10 @@ import javax.swing.tree.TreeModel;
 import de.jebc.ebc.addressbook.domain.baseadresses.BaseAddressData;
 import de.jebc.ebc.impl.ProcessImpl;
 
-public class ConvertAddressesIntoTreeStructure extends ProcessImpl<List<BaseAddressData>, TreeModel> {
+public class ConvertAddressesIntoTreeStructure extends
+        ProcessImpl<List<BaseAddressData>, TreeModel> {
 
+    @Override
     protected void process(List<BaseAddressData> message) {
         TreeModel tree = convertListToTree(message);
         Result().send(tree);

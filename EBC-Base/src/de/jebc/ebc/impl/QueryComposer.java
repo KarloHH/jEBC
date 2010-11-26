@@ -12,7 +12,7 @@ public class QueryComposer<T1, T2> implements QueryInPin<T1, T2> {
     public QueryComposer(InPin<T1> in, OutPin<T2> out) {
         inPin = in;
         out.connect(new InPin<T2>() {
-            
+
             @Override
             public void receive(T2 message) {
                 response.receive(message);

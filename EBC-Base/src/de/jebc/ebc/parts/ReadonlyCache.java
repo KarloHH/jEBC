@@ -16,7 +16,7 @@ public class ReadonlyCache<TKey, TVal> implements Cache<TKey, TVal> {
         @Override
         public void receive(final TKey message, final InPin<TVal> response) {
             if (cache.containsKey(message)) {
-                response.receive(cache.get(message)); 
+                response.receive(cache.get(message));
             } else {
                 requestPin.send(message, new InPin<TVal>() {
 

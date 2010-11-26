@@ -13,7 +13,8 @@ import de.jebc.ebc.addressbook.data.Resultset;
 import de.jebc.ebc.impl.ProcessImpl;
 import de.jebc.ebc.impl.QueryPinImpl;
 
-public class JdbcExecuteDatasourceQuery extends ProcessImpl<Query, Resultset> implements ExecuteDatasourceQuery {
+public class JdbcExecuteDatasourceQuery extends ProcessImpl<Query, Resultset>
+        implements ExecuteDatasourceQuery {
 
     private QueryOutPin<Object, Connection> connectionQuery = new QueryPinImpl<Object, Connection>();
 
@@ -41,6 +42,7 @@ public class JdbcExecuteDatasourceQuery extends ProcessImpl<Query, Resultset> im
             }
         });
     }
+
     /*
      * (non-Javadoc)
      * 

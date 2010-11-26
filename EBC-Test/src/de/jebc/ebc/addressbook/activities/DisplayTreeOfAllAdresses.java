@@ -18,8 +18,7 @@ public class DisplayTreeOfAllAdresses extends Board {
     private ConvertAddressesIntoTreeStructure convert;
 
     public DisplayTreeOfAllAdresses(ExecuteDatasourceQuery datasource) {
-        read = new ReadBaseAddressInformationFromDatasource(
-                datasource);
+        read = new ReadBaseAddressInformationFromDatasource(datasource);
         convert = new ConvertAddressesIntoTreeStructure();
         //
         connect(read.Result(), convert.Start());

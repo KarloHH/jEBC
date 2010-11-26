@@ -22,7 +22,7 @@ public class DisplayAddressDetails extends Board {
         this.datasource = datasource;
         query = new GenerateQueryForAddress();
         generate = new GenerateAddressDTO();
-        
+
         connect(query.Result(), datasource.Start());
         connect(datasource.Result(), generate.Start());
     }
@@ -34,7 +34,7 @@ public class DisplayAddressDetails extends Board {
     public OutPin<Address> result() {
         return generate.Result();
     }
-    
+
     public QueryOutPin<Object, Connection> Connection() {
         return datasource.Connection();
     }

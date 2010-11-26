@@ -27,15 +27,15 @@ public class DeleteCurrentAddress extends Board {
         connect(delete.Connection(), connectionPin.in());
         connect(display.connection(), connectionPin.in());
     }
-    
+
     public QueryOutPin<Object, Connection> connection() {
         return connectionPin;
     }
-    
+
     public InPin<BaseAddressData> in() {
         return delete.Start();
     }
-    
+
     public OutPin<TreeModel> tree() {
         return display.tree();
     }

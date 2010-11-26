@@ -13,20 +13,23 @@ import de.jebc.ebc.impl.QueryPinImpl;
 public class GenerateDeleteCommand extends ProcessImpl<BaseAddressData, Object> {
 
     private QueryOutPin<Object, Connection> connectionPin = new QueryPinImpl<Object, Connection>();
+
     public QueryOutPin<Object, Connection> Connection() {
         return connectionPin;
     }
 
+    @Override
     protected void process(BaseAddressData message) {
-        final String command = "DELETE FROM Adressen WHERE ID = " + message.getId();
+        final String command = "DELETE FROM Adressen WHERE ID = "
+                + message.getId();
         Connection().send(null, new InPin<Connection>() {
 
             @Override
             public void receive(Connection conn) {
                 try {
-                Statement stmt = conn.createStatement();
-                stmt.executeUpdate(command);
-                Result().send(null);
+                    Statement stmt = conn.createStatement();
+                    stmt.executeUpdate(command);
+                    Result().send(null);
                 } catch (SQLException exc) {
                     // TODO handle exception
                     System.err.println(exc.toString());

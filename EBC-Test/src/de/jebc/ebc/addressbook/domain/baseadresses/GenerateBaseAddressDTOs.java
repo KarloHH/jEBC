@@ -8,8 +8,10 @@ import de.jebc.ebc.addressbook.data.Resultset;
 import de.jebc.ebc.addressbook.domain.AddressCategory;
 import de.jebc.ebc.impl.ProcessImpl;
 
-public class GenerateBaseAddressDTOs extends ProcessImpl<Resultset, List<BaseAddressData>> {
+public class GenerateBaseAddressDTOs extends
+        ProcessImpl<Resultset, List<BaseAddressData>> {
 
+    @Override
     protected void process(Resultset message) {
         List<BaseAddressData> result = generate(message);
         Result().send(result);

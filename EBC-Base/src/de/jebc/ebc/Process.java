@@ -1,6 +1,5 @@
 package de.jebc.ebc;
 
-
 public interface Process<TInput, TOutput> {
 
     public abstract OutPin<TOutput> Result();

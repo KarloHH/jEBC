@@ -18,7 +18,7 @@ public abstract class Splitter<TInput, TOutput1, TOutput2> {
 
     protected abstract TOutput1 getMessage1(TInput message);
 
-    protected abstract TOutput2 getMessage2(TInput message);   
+    protected abstract TOutput2 getMessage2(TInput message);
 
     public InPin<TInput> in() {
         return inPin;

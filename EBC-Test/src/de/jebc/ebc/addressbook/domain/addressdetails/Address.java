@@ -13,7 +13,9 @@ public class Address {
     private final String street;
     private final String country;
 
-    public Address(int id, AddressCategory category, String name, String givenName, String zipCode, String city, String street, String country) {
+    public Address(int id, AddressCategory category, String name,
+            String givenName, String zipCode, String city, String street,
+            String country) {
         this.id = id;
         this.category = category;
         this.name = name;
@@ -55,6 +57,5 @@ public class Address {
     public String getCountry() {
         return country;
     }
-    
-    
+
 }

@@ -10,7 +10,7 @@ public class Configuration {
 
     protected Connection connection;
     private QueryInPin<Object, Connection> provideConnection = new QueryInPin<Object, Connection>() {
-        
+
         @Override
         public void receive(Object message, InPin<Connection> response) {
             response.receive(connection);
@@ -21,7 +21,7 @@ public class Configuration {
         Class.forName("org.sqlite.JDBC");
         connection = DriverManager.getConnection("jdbc:sqlite:" + args[0]);
     }
-    
+
     public QueryInPin<Object, Connection> ProvideConnection() {
         return provideConnection;
     }

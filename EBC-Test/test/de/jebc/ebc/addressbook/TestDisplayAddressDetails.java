@@ -38,15 +38,15 @@ public class TestDisplayAddressDetails {
             }
         });
         sut.result().connect(new InPin<Address>() {
-            
+
             @Override
             public void receive(Address message) {
                 result = message;
             }
         });
-        
+
         sut.start().receive(data);
-        
+
         assertEquals(1, result.getId());
         assertEquals(new AddressCategory("Büro"), result.getCategory());
         assertEquals("Name", result.getName());

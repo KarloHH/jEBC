@@ -37,6 +37,7 @@ public class SimpleEchoWindow extends JFrame {
      */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     SimpleEchoWindow frame = new SimpleEchoWindow();
@@ -121,6 +122,7 @@ public class SimpleEchoWindow extends JFrame {
 
     private ActionListener getUpcaseServiceListener() {
         return new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent arg0) {
                 outPin.send(txtInput.getText(), new InPin<String>() {
 
