@@ -3,7 +3,7 @@ package de.jebc.ebc.addressbook.domain.deleteaddress;
 import java.sql.Connection;
 
 import de.jebc.ebc.InPin;
-import de.jebc.ebc.OutPin;
+import de.jebc.ebc.OutTrigger;
 import de.jebc.ebc.QueryOutPin;
 import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasource;
 import de.jebc.ebc.addressbook.domain.baseadresses.BaseAddressData;
@@ -20,7 +20,7 @@ public class DeleteAddressFromDatasource extends Board {
         connect(generate.Result(), query.StartCommand());
     }
 
-    public OutPin<Object> Result() {
+    public OutTrigger Result() {
         return query.CommandDone();
     }
 

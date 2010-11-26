@@ -4,7 +4,7 @@ import java.sql.Connection;
 
 import javax.swing.tree.TreeModel;
 
-import de.jebc.ebc.InPin;
+import de.jebc.ebc.InTrigger;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.QueryOutPin;
 import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasource;
@@ -24,7 +24,7 @@ public class DisplayTreeOfAllAdresses extends Board {
         connect(read.Result(), convert.Start());
     }
 
-    public InPin<Object> start() {
+    public InTrigger start() {
         return read.Start();
     }
 

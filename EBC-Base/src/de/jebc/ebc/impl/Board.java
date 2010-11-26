@@ -1,7 +1,9 @@
 package de.jebc.ebc.impl;
 
 import de.jebc.ebc.InPin;
+import de.jebc.ebc.InTrigger;
 import de.jebc.ebc.OutPin;
+import de.jebc.ebc.OutTrigger;
 import de.jebc.ebc.QueryInPin;
 import de.jebc.ebc.QueryOutPin;
 
@@ -22,6 +24,10 @@ public abstract class Board {
 
     protected <T> void connect(OutPin<T> outPin, InPin<T> inPin) {
         outPin.connect(inPin);
+    }
+    
+    protected void connect(OutTrigger out, InTrigger in) {
+        out.connect(in);
     }
 
     protected <T1, T2> void monitor(QueryOutPin<T1, T2> output,

@@ -9,6 +9,7 @@ import java.sql.Statement;
 import org.junit.Test;
 
 import de.jebc.ebc.InPin;
+import de.jebc.ebc.InTrigger;
 import de.jebc.ebc.QueryInPin;
 import de.jebc.ebc.addressbook.activities.SaveNewAddressData;
 import de.jebc.ebc.addressbook.data.jdbc.JdbcExecuteDatasourceQuery;
@@ -36,10 +37,10 @@ public class TestSaveNewAddressData {
                 response.receive(conn);
             }
         });
-        sut.Completed().connect(new InPin<Object>() {
+        sut.Completed().connect(new InTrigger() {
 
             @Override
-            public void receive(Object message) {
+            public void receive() {
                 completed = true;
             }
         });

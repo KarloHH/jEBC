@@ -7,9 +7,11 @@ import java.sql.Statement;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
+import de.jebc.ebc.OutTrigger;
 import de.jebc.ebc.QueryOutPin;
 import de.jebc.ebc.addressbook.data.Query;
 import de.jebc.ebc.addressbook.data.Resultset;
+import de.jebc.ebc.impl.BroadcastOutTrigger;
 import de.jebc.ebc.impl.QueryPinImpl;
 import de.jebc.ebc.impl.SingleOutPin;
 
@@ -31,7 +33,7 @@ public class JdbcExecuteDatasourceQuery implements ExecuteDatasource {
             processCommand(message);
         }
     };
-    private OutPin<Object> commandDonePin = new SingleOutPin<Object>();
+    private OutTrigger commandDonePin = new BroadcastOutTrigger();
     private InPin<Query> startIdentityPin = new InPin<Query>() {
 
         @Override
@@ -100,7 +102,7 @@ public class JdbcExecuteDatasourceQuery implements ExecuteDatasource {
                     // TODO exception handling
                     e.printStackTrace();
                 }
-                CommandDone().send(null);
+                CommandDone().send();
             }
 
         });
@@ -130,7 +132,7 @@ public class JdbcExecuteDatasourceQuery implements ExecuteDatasource {
     }
 
     @Override
-    public OutPin<Object> CommandDone() {
+    public OutTrigger CommandDone() {
         return commandDonePin;
     }
 

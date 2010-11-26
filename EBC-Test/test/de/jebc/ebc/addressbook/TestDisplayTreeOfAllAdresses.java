@@ -43,7 +43,7 @@ public class TestDisplayTreeOfAllAdresses {
             }
         });
 
-        sut.start().receive(null);
+        sut.start().receive();
 
         assertNotNull(result);
     }

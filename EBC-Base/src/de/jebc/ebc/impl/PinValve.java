@@ -1,6 +1,7 @@
 package de.jebc.ebc.impl;
 
 import de.jebc.ebc.InPin;
+import de.jebc.ebc.InTrigger;
 import de.jebc.ebc.OutPin;
 
 public class PinValve<T> {
@@ -18,19 +19,19 @@ public class PinValve<T> {
         }
     };
     private OutPin<T> outPin = new BroadcastOutPin<T>();
-    private InPin<Object> openPin = new InPin<Object>() {
+    private InTrigger openPin = new InTrigger() {
         
         @Override
-        public void receive(Object message) {
+        public void receive() {
             valveOpen = true;
             if (data != null)
                 send();
         }
     };
-    private InPin<Object> resetPin = new InPin<Object>() {
+    private InTrigger resetPin = new InTrigger() {
 
         @Override
-        public void receive(Object message) {
+        public void receive() {
             data = null;
             valveOpen = false;
         }
@@ -44,11 +45,11 @@ public class PinValve<T> {
         return inPin;
     }
     
-    public InPin<Object> Open() {
+    public InTrigger Open() {
         return openPin;
     }
     
-    public InPin<Object> Reset() {
+    public InTrigger Reset() {
         return resetPin;
     }
 

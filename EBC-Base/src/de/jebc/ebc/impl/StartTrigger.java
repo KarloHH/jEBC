@@ -1,18 +1,18 @@
 package de.jebc.ebc.impl;
 
-import de.jebc.ebc.OutPin;
+import de.jebc.ebc.OutTrigger;
 
 public class StartTrigger<T> extends ProcessImpl<T, T> {
 
-    private OutPin<Object> triggerPin = new BroadcastOutPin<Object>();
+    private OutTrigger triggerPin = new BroadcastOutTrigger();
 
     @Override
     protected void process(T message) {
-        Trigger().send(null);
+        Trigger().send();
         Result().send(message);
     }
     
-    public OutPin<Object> Trigger() {
+    public OutTrigger Trigger() {
         return triggerPin;
     }
 }

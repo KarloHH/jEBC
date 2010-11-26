@@ -3,7 +3,7 @@ package de.jebc.ebc.addressbook.domain.baseadresses;
 import java.sql.Connection;
 import java.util.List;
 
-import de.jebc.ebc.InPin;
+import de.jebc.ebc.InTrigger;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.QueryOutPin;
 import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasource;
@@ -25,7 +25,7 @@ public class ReadBaseAddressInformationFromDatasource extends Board {
         connect(execute.ResultQuery(), generateDTOs.Start());
     }
 
-    public InPin<Object> Start() {
+    public InTrigger Start() {
         return generateQuery.Start();
     }
 
