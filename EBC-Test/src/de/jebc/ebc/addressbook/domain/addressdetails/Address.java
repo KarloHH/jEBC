@@ -26,6 +26,10 @@ public class Address {
         this.country = country;
     }
 
+    public Address() {
+        this(0, new AddressCategory(""), "", "", "", "", "", "");
+    }
+
     public int getId() {
         return id;
     }
