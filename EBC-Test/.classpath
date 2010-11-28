@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="/media/AKTIV/Programmierung/libs/slf4j-simple-1.6.1.jar"/>
 	<classpathentry kind="lib" path="libs/sqlitejdbc-v056.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="miglayout15-swing.jar" sourcepath="miglayout-src.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
