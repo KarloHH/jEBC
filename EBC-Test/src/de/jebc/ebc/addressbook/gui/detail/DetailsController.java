@@ -7,13 +7,11 @@ import de.jebc.ebc.InPin;
 import de.jebc.ebc.InTrigger;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.addressbook.domain.addressdetails.Address;
-import de.jebc.ebc.impl.BroadcastOutPin;
 import de.jebc.ebc.impl.SingleOutPin;
 
 public class DetailsController implements Observer {
 
     private final IDetailsView view;
-    private OutPin<Boolean> changedPin = new BroadcastOutPin<Boolean>();
     private InTrigger savedPin = new InTrigger() {
 
         @Override
@@ -53,7 +51,6 @@ public class DetailsController implements Observer {
 
     public DetailsController(IDetailsView view) {
         this.view = view;
-        view.changed().addObserver(this);
     }
 
     @Override
@@ -62,7 +59,7 @@ public class DetailsController implements Observer {
     }
 
     public OutPin<Boolean> Changed() {
-        return changedPin;
+        return view.Changed();
     }
 
     public InTrigger Saved() {

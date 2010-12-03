@@ -1,7 +1,6 @@
 package de.jebc.ebc.addressbook.gui.detail;
 
-import java.util.Observable;
-
+import de.jebc.ebc.OutPin;
 import de.jebc.ebc.addressbook.domain.addressdetails.Address;
 
 public interface IDetailsView {
@@ -10,6 +9,6 @@ public interface IDetailsView {
 
     public abstract Address getAddress();
 
-    public abstract Observable changed();
+    public abstract OutPin<Boolean> Changed();
 
 }

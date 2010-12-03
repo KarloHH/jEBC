@@ -1,6 +1,7 @@
 package de.jebc.ebc.addressbook.gui.main;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.Action;
@@ -20,6 +21,7 @@ public class MainWindow extends JFrame implements IMainWindow {
     private JMenuItem mnuExit;
     private JMenuItem mnuSave;
     private JMenuItem mnuNewAddress;
+    private JSplitPane splitPane;
 
     /**
      * Launch the application.
@@ -70,8 +72,13 @@ public class MainWindow extends JFrame implements IMainWindow {
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
 
-        JSplitPane splitPane = new JSplitPane();
+        splitPane = new JSplitPane();
         contentPane.add(splitPane, BorderLayout.CENTER);
+    }
+    
+    public void setSplitter(Component left, Component right) {
+        splitPane.setLeftComponent(left);
+        splitPane.setRightComponent(right);
     }
 
     /* (non-Javadoc)

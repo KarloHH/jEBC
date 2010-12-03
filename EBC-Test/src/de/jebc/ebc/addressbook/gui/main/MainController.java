@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
+import de.jebc.ebc.InPin;
 import de.jebc.ebc.InTrigger;
 import de.jebc.ebc.OutTrigger;
 import de.jebc.ebc.impl.BroadcastOutTrigger;
@@ -16,6 +17,7 @@ public class MainController {
         private final MainController mainController;
 
         public SaveAction(MainController mainController) {
+            super("Save");
             this.mainController = mainController;
         }
 
@@ -31,6 +33,7 @@ public class MainController {
         private final MainController mainController;
 
         public ExitAction(MainController mainController) {
+            super("Exit");
             this.mainController = mainController;
         }
 
@@ -46,6 +49,7 @@ public class MainController {
         private final MainController mainController;
 
         public NewAction(MainController mainController) {
+            super("New");
             this.mainController = mainController;
         }
 
@@ -61,6 +65,7 @@ public class MainController {
         private final MainController mainController;
 
         public DeleteAction(MainController mainController) {
+            super("Delete");
             this.mainController = mainController;
         }
 
@@ -74,11 +79,11 @@ public class MainController {
     private OutTrigger savePin = new BroadcastOutTrigger();
     private OutTrigger newPin = new BroadcastOutTrigger();
     private OutTrigger deletePin = new BroadcastOutTrigger();
-    private InTrigger changedPin = new InTrigger() {
+    private InPin<Boolean> changedPin = new InPin<Boolean>() {
         
         @Override
-        public void receive() {
-            save.setEnabled(true);
+        public void receive(Boolean message) {
+            save.setEnabled(message);
         }
     };
     private InTrigger savedPin = new InTrigger() {
@@ -124,7 +129,7 @@ public class MainController {
         return deletePin;
     }
 
-    public InTrigger Changed() {
+    public InPin<Boolean> Changed() {
         return changedPin;
     }
     

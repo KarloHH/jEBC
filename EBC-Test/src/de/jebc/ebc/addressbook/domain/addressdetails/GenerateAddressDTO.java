@@ -10,6 +10,7 @@ public class GenerateAddressDTO extends ProcessImpl<Resultset, Address> {
     @Override
     protected void process(Resultset rs) {
         try {
+            rs.next();
             Address dto = new Address(rs.getInt("ID"), new AddressCategory(
                     rs.getString("Category")), rs.getString("Name"),
                     rs.getString("GivenName"), rs.getString("ZipCode"),

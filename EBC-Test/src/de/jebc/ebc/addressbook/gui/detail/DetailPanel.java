@@ -1,15 +1,17 @@
 package de.jebc.ebc.addressbook.gui.detail;
 
-import java.awt.event.KeyAdapter;
-import java.util.Observable;
-
-import javax.swing.JPanel;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
+import net.miginfocom.swing.MigLayout;
+
+import de.jebc.ebc.OutPin;
 import de.jebc.ebc.addressbook.domain.AddressCategory;
 import de.jebc.ebc.addressbook.domain.addressdetails.Address;
+import de.jebc.ebc.impl.BroadcastOutPin;
 
 @SuppressWarnings("serial")
 public class DetailPanel extends JPanel implements IDetailsView {
@@ -22,14 +24,25 @@ public class DetailPanel extends JPanel implements IDetailsView {
     private JTextField txtCategory;
     private int id;
     private Address original;
-    private Observable changeObservable = new Observable();
-    private Boolean changed = null;
+    private OutPin<Boolean> changePin = new BroadcastOutPin<Boolean>();
+    private Boolean changed = false;
 
-    private KeyAdapter keyTyped = new KeyAdapter() {
+    private DocumentListener docChanged = new DocumentListener() {
 
-        public void keyTyped(java.awt.event.KeyEvent e) {
+        @Override
+        public void removeUpdate(DocumentEvent e) {
             checkChanged();
-        };
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            checkChanged();
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            checkChanged();
+        }
     };
 
     /**
@@ -44,7 +57,7 @@ public class DetailPanel extends JPanel implements IDetailsView {
         txtGivenName = new JTextField();
         add(txtGivenName, "flowx,cell 2 1,growx");
         txtGivenName.setColumns(10);
-        txtGivenName.addKeyListener(keyTyped);
+        txtGivenName.getDocument().addDocumentListener(docChanged);
 
         JLabel lblLastName = new JLabel("Last Name");
         add(lblLastName, "cell 3 1");
@@ -52,7 +65,7 @@ public class DetailPanel extends JPanel implements IDetailsView {
         txtLastName = new JTextField();
         add(txtLastName, "cell 4 1,growx");
         txtLastName.setColumns(10);
-        txtLastName.addKeyListener(keyTyped);
+        txtLastName.getDocument().addDocumentListener(docChanged);
 
         JLabel lblZipCode = new JLabel("Zip code");
         add(lblZipCode, "cell 1 3,alignx trailing");
@@ -60,7 +73,7 @@ public class DetailPanel extends JPanel implements IDetailsView {
         txtZipCode = new JTextField();
         add(txtZipCode, "cell 2 3");
         txtZipCode.setColumns(6);
-        txtZipCode.addKeyListener(keyTyped);
+        txtZipCode.getDocument().addDocumentListener(docChanged);
 
         JLabel lblCity = new JLabel("City");
         add(lblCity, "cell 3 3,alignx trailing");
@@ -68,7 +81,7 @@ public class DetailPanel extends JPanel implements IDetailsView {
         txtCity = new JTextField();
         add(txtCity, "cell 4 3,growx");
         txtCity.setColumns(10);
-        txtCity.addKeyListener(keyTyped);
+        txtCity.getDocument().addDocumentListener(docChanged);
 
         JLabel lblStreet = new JLabel("Street");
         add(lblStreet, "cell 1 4,alignx trailing");
@@ -76,7 +89,7 @@ public class DetailPanel extends JPanel implements IDetailsView {
         txtStreet = new JTextField();
         add(txtStreet, "cell 2 4 3 1,growx");
         txtStreet.setColumns(10);
-        txtStreet.addKeyListener(keyTyped);
+        txtStreet.getDocument().addDocumentListener(docChanged);
 
         JLabel lblCountry = new JLabel("Country");
         add(lblCountry, "cell 1 5,alignx trailing");
@@ -84,7 +97,7 @@ public class DetailPanel extends JPanel implements IDetailsView {
         txtCountry = new JTextField();
         add(txtCountry, "cell 2 5 3 1,growx");
         txtCountry.setColumns(10);
-        txtCountry.addKeyListener(keyTyped);
+        txtCountry.getDocument().addDocumentListener(docChanged);
 
         JLabel lblCategory = new JLabel("Category");
         add(lblCategory, "cell 1 6,alignx trailing");
@@ -92,23 +105,27 @@ public class DetailPanel extends JPanel implements IDetailsView {
         txtCategory = new JTextField();
         add(txtCategory, "cell 2 6,growx");
         txtCategory.setColumns(10);
-        txtCategory.addKeyListener(keyTyped);
+        txtCategory.getDocument().addDocumentListener(docChanged);
 
     }
 
     protected void checkChanged() {
-        setChanged(original == getAddress());
+        setChanged(!getAddress().equals(original));
     }
 
     private void setChanged(boolean newValue) {
         if (newValue != changed) {
             changed = newValue;
-            changeObservable.notifyObservers(changed);
+            Changed().send(changed);
         }
     }
 
-    /* (non-Javadoc)
-     * @see de.jebc.ebc.addressbook.gui.detail.IDetailsView#setAddress(de.jebc.ebc.addressbook.domain.addressdetails.Address)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * de.jebc.ebc.addressbook.gui.detail.IDetailsView#setAddress(de.jebc.ebc
+     * .addressbook.domain.addressdetails.Address)
      */
     @Override
     public void setAddress(Address address) {
@@ -124,7 +141,9 @@ public class DetailPanel extends JPanel implements IDetailsView {
         setChanged(false);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see de.jebc.ebc.addressbook.gui.detail.IDetailsView#getAddress()
      */
     @Override
@@ -136,11 +155,13 @@ public class DetailPanel extends JPanel implements IDetailsView {
         return result;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see de.jebc.ebc.addressbook.gui.detail.IDetailsView#changed()
      */
     @Override
-    public Observable changed() {
-        return changeObservable;
+    public OutPin<Boolean> Changed() {
+        return changePin;
     }
 }
