@@ -13,11 +13,15 @@ public abstract class AbstractLogPin<T> extends Monitor<T> {
 
     }
 
-    @Override
-    protected void inspect(T message) {
+    public void log(T message) {
         if (enabled()) {
             log(getLogMessage(message));
         }
+    }
+
+    @Override
+    protected void inspect(T message) {
+        log(message);
     }
 
     protected abstract String getLogMessage(T message);
