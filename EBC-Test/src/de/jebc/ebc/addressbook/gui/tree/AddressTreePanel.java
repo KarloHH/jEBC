@@ -25,10 +25,8 @@ public class AddressTreePanel extends JPanel {
             if (selectedNode != null) {
                 Object userObject = selectedNode.getUserObject();
                 if (userObject instanceof BaseAddressData) {
-                    changesActive = true;
                     BaseAddressData selectedAddress = (BaseAddressData) userObject;
                     Delete().send(selectedAddress);
-                    changesActive = false;
                 }
             }
         }
@@ -53,13 +51,15 @@ public class AddressTreePanel extends JPanel {
 
         @Override
         public void receive(TreeModel message) {
+            suppressSelection = true;
             tree.clearSelection();
             tree.setModel(message);
+            suppressSelection = false;
         }
     };
 
     private JTree tree;
-    private boolean changesActive = false;
+    private boolean suppressSelection = false;
     protected DefaultMutableTreeNode selectedNode;
 
     /**
@@ -71,7 +71,7 @@ public class AddressTreePanel extends JPanel {
         tree = new JTree();
         tree.addTreeSelectionListener(new TreeSelectionListener() {
             public void valueChanged(TreeSelectionEvent event) {
-                if (!changesActive) {
+                if (!suppressSelection) {
                     selectedNode = (DefaultMutableTreeNode) event.getPath()
                             .getLastPathComponent();
                     Select().send(selectedNode);
