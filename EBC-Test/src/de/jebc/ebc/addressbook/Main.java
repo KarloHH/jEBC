@@ -7,6 +7,9 @@ import de.jebc.ebc.addressbook.activities.DisplayAddressDetails;
 import de.jebc.ebc.addressbook.activities.DisplayTreeOfAllAdresses;
 import de.jebc.ebc.addressbook.activities.SaveAddressData;
 import de.jebc.ebc.addressbook.activities.SaveNewAddressData;
+import de.jebc.ebc.addressbook.data.ConnectionFactory;
+import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasource;
+import de.jebc.ebc.addressbook.data.jdbc.JdbcConnectionFactory;
 import de.jebc.ebc.addressbook.data.jdbc.JdbcExecuteDatasourceQuery;
 import de.jebc.ebc.addressbook.gui.GuiBoard;
 import de.jebc.ebc.addressbook.gui.detail.DetailPanel;
@@ -24,7 +27,6 @@ public class Main extends Board {
     private static SaveAddressData save;
     private static SaveNewAddressData saveNew;
     private static DisplayAddressDetails displayDetails;
-    private static ConfigureConnection connection;
 
     /**
      * @param args
@@ -55,19 +57,15 @@ public class Main extends Board {
         DetailsController details = new DetailsController(detailPanel);
         AddressTreePanel tree = new AddressTreePanel();
         frame.setSplitter(tree, detailPanel);
+        JdbcConnectionFactory connection = new JdbcConnectionFactory(
+                ConfigureConnection.Configure(args));
         gui = new GuiBoard(details, main, tree);
-        displayTree = new DisplayTreeOfAllAdresses(new JdbcExecuteDatasourceQuery());
-        deleteCurrent = new DeleteCurrentAddress(new JdbcExecuteDatasourceQuery());
-        save = new SaveAddressData(new JdbcExecuteDatasourceQuery());
-        saveNew = new SaveNewAddressData(new JdbcExecuteDatasourceQuery());
-        displayDetails = new DisplayAddressDetails(new JdbcExecuteDatasourceQuery());
-        connection = new ConfigureConnection(args);
+        displayTree = new DisplayTreeOfAllAdresses(getDatasource(connection));
+        deleteCurrent = new DeleteCurrentAddress(getDatasource(connection));
+        save = new SaveAddressData(getDatasource(connection));
+        saveNew = new SaveNewAddressData(getDatasource(connection));
+        displayDetails = new DisplayAddressDetails(getDatasource(connection));
         // wire
-        connect(deleteCurrent.connection(),connection.ProvideConnection());
-        connect(save.Connection(),connection.ProvideConnection());
-        connect(saveNew.Connection(),connection.ProvideConnection());
-        connect(displayDetails.Connection(),connection.ProvideConnection());
-        connect(displayTree.connection(), connection.ProvideConnection());
         connect(deleteCurrent.tree(), gui.DisplayTree());
         connect(gui.Delete(), deleteCurrent.in());
         connect(displayTree.tree(), gui.DisplayTree());
@@ -78,6 +76,10 @@ public class Main extends Board {
         connect(saveNew.Completed(), displayTree.start());
         connect(displayDetails.result(), gui.Display());
         connect(gui.Select(), displayDetails.start());
+    }
+
+    protected ExecuteDatasource getDatasource(ConnectionFactory connection) {
+        return new JdbcExecuteDatasourceQuery(connection);
     }
 
 }

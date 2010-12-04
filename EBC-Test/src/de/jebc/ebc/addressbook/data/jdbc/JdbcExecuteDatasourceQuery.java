@@ -8,16 +8,14 @@ import java.sql.Statement;
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.OutTrigger;
-import de.jebc.ebc.QueryOutPin;
+import de.jebc.ebc.addressbook.data.ConnectionFactory;
 import de.jebc.ebc.addressbook.data.Query;
 import de.jebc.ebc.addressbook.data.Resultset;
 import de.jebc.ebc.impl.BroadcastOutTrigger;
-import de.jebc.ebc.impl.QueryPinImpl;
 import de.jebc.ebc.impl.SingleOutPin;
 
 public class JdbcExecuteDatasourceQuery implements ExecuteDatasource {
 
-    private QueryOutPin<Object, Connection> connectionQuery = new QueryPinImpl<Object, Connection>();
     private InPin<Query> startQueryPin = new InPin<Query>() {
 
         @Override
@@ -42,44 +40,40 @@ public class JdbcExecuteDatasourceQuery implements ExecuteDatasource {
         }
     };
     private OutPin<Integer> resultIdentityPin = new SingleOutPin<Integer>();
+    private final ConnectionFactory factory;
+
+    public JdbcExecuteDatasourceQuery(ConnectionFactory connection) {
+        this.factory = connection;
+    }
 
     private void processQuery(final Query query) {
-        connectionQuery.send(null, new InPin<Connection>() {
-
-            @Override
-            public void receive(Connection conn) {
-                String command = generateCommand(query);
-                ResultSet rs = null;
-                Statement stmt = null;
-                try {
-                    stmt = conn.createStatement();
-                    rs = stmt.executeQuery(command);
-                    Resultset result = new JdbcResultsetFacade(rs);
-                    ResultQuery().send(result);
-                } catch (SQLException e) {
-                    // TODO exception handling
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        if (rs != null)
-                            rs.close();
-                        if (stmt != null)
-                            stmt.close();
-                    } catch (SQLException e2) {
-                        // TODO exception handling
-                        e2.printStackTrace();
-                    }
-                }
+        Connection conn = factory.getConnection();
+        String command = generateCommand(query);
+        ResultSet rs = null;
+        Statement stmt = null;
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(command);
+            Resultset result = new JdbcResultsetFacade(rs);
+            ResultQuery().send(result);
+        } catch (SQLException e) {
+            // TODO exception handling
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null)
+                    rs.close();
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException e2) {
+                // TODO exception handling
+                e2.printStackTrace();
             }
-
-        });
+        }
     }
 
     protected void processIdentity(final Query query) {
-        connectionQuery.send(null, new InPin<Connection>() {
-
-            @Override
-            public void receive(Connection conn) {
+        Connection conn = factory.getConnection();
                 String command = generateCommand(query);
                 ResultSet rs = null;
                 Statement stmt = null;
@@ -108,14 +102,8 @@ public class JdbcExecuteDatasourceQuery implements ExecuteDatasource {
                 }
             }
 
-        });
-    }
-
     private void processCommand(final Query query) {
-        connectionQuery.send(null, new InPin<Connection>() {
-
-            @Override
-            public void receive(Connection conn) {
+        Connection conn = factory.getConnection();
                 String command = generateCommand(query);
                 Statement stmt = null;
                 try {
@@ -136,16 +124,8 @@ public class JdbcExecuteDatasourceQuery implements ExecuteDatasource {
                 }
             }
 
-        });
-    }
-
     private String generateCommand(Query query) {
         return query.getCommand();
-    }
-
-    @Override
-    public QueryOutPin<Object, Connection> Connection() {
-        return connectionQuery;
     }
 
     @Override

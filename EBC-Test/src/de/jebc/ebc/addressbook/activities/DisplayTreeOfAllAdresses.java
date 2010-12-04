@@ -1,12 +1,9 @@
 package de.jebc.ebc.addressbook.activities;
 
-import java.sql.Connection;
-
 import javax.swing.tree.TreeModel;
 
 import de.jebc.ebc.InTrigger;
 import de.jebc.ebc.OutPin;
-import de.jebc.ebc.QueryOutPin;
 import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasource;
 import de.jebc.ebc.addressbook.domain.ConvertAddressesIntoTreeStructure;
 import de.jebc.ebc.addressbook.domain.baseadresses.ReadBaseAddressInformationFromDatasource;
@@ -32,7 +29,4 @@ public class DisplayTreeOfAllAdresses extends Board {
         return convert.Result();
     }
 
-    public QueryOutPin<Object, Connection> connection() {
-        return read.Connection();
-    }
 }

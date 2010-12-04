@@ -1,6 +1,7 @@
 package de.jebc.ebc.addressbook;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,8 +11,8 @@ import org.junit.Test;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.InTrigger;
-import de.jebc.ebc.QueryInPin;
 import de.jebc.ebc.addressbook.activities.SaveNewAddressData;
+import de.jebc.ebc.addressbook.data.ConnectionFactory;
 import de.jebc.ebc.addressbook.data.jdbc.JdbcExecuteDatasourceQuery;
 import de.jebc.ebc.addressbook.domain.AddressCategory;
 import de.jebc.ebc.addressbook.domain.addressdetails.Address;
@@ -26,17 +27,11 @@ public class TestSaveNewAddressData {
 
         Address data = new Address(0, new AddressCategory("Büro"), "Name",
                 "Vorname", "20000", "City", "Straße", "Land");
-        final Connection conn = prepareDatabase();
+        final ConnectionFactory conn = prepareDatabase();
 
-        SaveNewAddressData sut = new SaveNewAddressData(new JdbcExecuteDatasourceQuery());
+        SaveNewAddressData sut = new SaveNewAddressData(
+                new JdbcExecuteDatasourceQuery(conn));
 
-        sut.Connection().connect(new QueryInPin<Object, Connection>() {
-            
-            @Override
-            public void receive(Object message, InPin<Connection> response) {
-                response.receive(conn);
-            }
-        });
         sut.Completed().connect(new InTrigger() {
 
             @Override
@@ -51,20 +46,27 @@ public class TestSaveNewAddressData {
                 result = message;
             }
         });
-        
+
         sut.Start().receive(data);
-        
+
         assertEquals(1, result.getId());
         assertTrue(completed);
     }
 
-    private Connection prepareDatabase() throws Exception {
+    private ConnectionFactory prepareDatabase() throws Exception {
         Class.forName("org.sqlite.JDBC");
-        Connection conn = DriverManager.getConnection("jdbc:sqlite::memory:");
+        final Connection conn = DriverManager
+                .getConnection("jdbc:sqlite::memory:");
         Statement stmt = conn.createStatement();
         stmt.executeUpdate("CREATE TABLE Adressen (ID INTEGER PRIMARY KEY AUTOINCREMENT, Category TEXT, Name TEXT, GivenName TEXT,"
                 + "ZipCode TEXT, City TEXT, Street TEXT, Country TEXT);");
-        return conn;
+        return new ConnectionFactory() {
+
+            @Override
+            public Connection getConnection() {
+                return conn;
+            }
+        };
     }
 
 }

@@ -11,8 +11,8 @@ import javax.swing.tree.TreeModel;
 import org.junit.Test;
 
 import de.jebc.ebc.InPin;
-import de.jebc.ebc.QueryInPin;
 import de.jebc.ebc.addressbook.activities.DisplayTreeOfAllAdresses;
+import de.jebc.ebc.addressbook.data.ConnectionFactory;
 import de.jebc.ebc.addressbook.data.jdbc.JdbcExecuteDatasourceQuery;
 
 public class TestDisplayTreeOfAllAdresses {
@@ -22,8 +22,9 @@ public class TestDisplayTreeOfAllAdresses {
     @Test
     public void testIntegration() throws Exception {
 
-        final Connection conn = prepareDatabase();
-        JdbcExecuteDatasourceQuery execute = new JdbcExecuteDatasourceQuery();
+        final ConnectionFactory conn = prepareDatabase();
+        JdbcExecuteDatasourceQuery execute = new JdbcExecuteDatasourceQuery(
+                conn);
 
         DisplayTreeOfAllAdresses sut = new DisplayTreeOfAllAdresses(execute);
 
@@ -35,25 +36,24 @@ public class TestDisplayTreeOfAllAdresses {
             }
         });
 
-        sut.connection().connect(new QueryInPin<Object, Connection>() {
-
-            @Override
-            public void receive(Object message, InPin<Connection> response) {
-                response.receive(conn);
-            }
-        });
-
         sut.start().receive();
 
         assertNotNull(result);
     }
 
-    private Connection prepareDatabase() throws Exception {
+    private ConnectionFactory prepareDatabase() throws Exception {
         Class.forName("org.sqlite.JDBC");
-        Connection conn = DriverManager.getConnection("jdbc:sqlite::memory:");
+        final Connection conn = DriverManager
+                .getConnection("jdbc:sqlite::memory:");
         Statement stmt = conn.createStatement();
         stmt.executeUpdate("CREATE TABLE Adressen (ID INTEGER, Category TEXT, Name TEXT, GivenName TEXT);");
         stmt.executeUpdate("INSERT INTO Adressen VALUES (1, 'Büro', 'Name', 'Vorname')");
-        return conn;
+        return new ConnectionFactory() {
+
+            @Override
+            public Connection getConnection() {
+                return conn;
+            }
+        };
     }
 }

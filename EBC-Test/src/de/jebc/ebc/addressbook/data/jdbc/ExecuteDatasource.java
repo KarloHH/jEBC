@@ -11,8 +11,6 @@ import de.jebc.ebc.addressbook.data.Resultset;
 
 public interface ExecuteDatasource {
 
-    public abstract QueryOutPin<Object, Connection> Connection();
-
     public abstract InPin<Query> StartQuery();
     
     public abstract OutPin<Resultset> ResultQuery();

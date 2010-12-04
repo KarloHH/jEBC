@@ -11,7 +11,8 @@ import org.junit.Test;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.InTrigger;
-import de.jebc.ebc.QueryInPin;
+import de.jebc.ebc.addressbook.data.ConnectionFactory;
+import de.jebc.ebc.addressbook.data.DataException;
 import de.jebc.ebc.addressbook.data.Query;
 import de.jebc.ebc.addressbook.data.Resultset;
 import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasource;
@@ -25,75 +26,72 @@ public class TestExecuteDatasourceQuery {
     @Test
     public void query() throws Exception {
 
-        final Connection conn = getConnection();
+        final ConnectionFactory conn = getConnection();
         Query query = new Query("SELECT ID, Name FROM Adressen");
 
-        ExecuteDatasource sut = new JdbcExecuteDatasourceQuery();
+        ExecuteDatasource sut = new JdbcExecuteDatasourceQuery(conn);
 
         sut.ResultQuery().connect(new InPin<Resultset>() {
 
             @Override
-            public void receive(Resultset message) {
-                result = message;
-            }
-        });
-
-        sut.Connection().connect(new QueryInPin<Object, Connection>() {
-
-            @Override
-            public void receive(Object message, InPin<Connection> response) {
-                response.receive(conn);
+            public void receive(Resultset result) {
+                try {
+                    assertTrue(result.next());
+                    assertEquals(1, result.getInt("ID"));
+                    assertEquals("Name", result.getString("Name"));
+                    done = true;
+                } catch (DataException e) {
+                    throw new AssertionError();
+                }
             }
         });
 
         sut.StartQuery().receive(query);
 
-        assertTrue(result.next());
-        assertEquals(1, result.getInt("ID"));
-        assertEquals("Name", result.getString("Name"));
+        assertTrue(done);
     }
-    
-    @Test public void command() throws Exception {
-        final Connection conn = getConnection();
+
+    @Test
+    public void command() throws Exception {
+        final ConnectionFactory conn = getConnection();
         Query query = new Query("DELETE FROM Adressen");
-        
-        ExecuteDatasource sut = new JdbcExecuteDatasourceQuery();
+
+        ExecuteDatasource sut = new JdbcExecuteDatasourceQuery(conn);
         done = false;
-        
+
         sut.CommandDone().connect(new InTrigger() {
-            
+
             @Override
             public void receive() {
                 done = true;
             }
         });
 
-        sut.Connection().connect(new QueryInPin<Object, Connection>() {
-
-            @Override
-            public void receive(Object message, InPin<Connection> response) {
-                response.receive(conn);
-            }
-        });
-        
         sut.StartCommand().receive(query);
-        
+
         assertTrue(done);
         assertTrue(addressDeleted(conn));
 
     }
 
-    private Connection getConnection() throws Exception {
+    private ConnectionFactory getConnection() throws Exception {
         Class.forName("org.sqlite.JDBC");
-        Connection conn = DriverManager.getConnection("jdbc:sqlite::memory:");
+        final Connection conn = DriverManager
+                .getConnection("jdbc:sqlite::memory:");
         Statement stmt = conn.createStatement();
         stmt.executeUpdate("CREATE TABLE Adressen (ID INTEGER, Name TEXT);");
         stmt.executeUpdate("INSERT INTO Adressen VALUES (1, 'Name')");
-        return conn;
+        return new ConnectionFactory() {
+
+            @Override
+            public Connection getConnection() {
+                return conn;
+            }
+        };
     }
 
-    private boolean addressDeleted(Connection conn) throws Exception {
-        Statement stmt = conn.createStatement();
+    private boolean addressDeleted(ConnectionFactory conn) throws Exception {
+        Statement stmt = conn.getConnection().createStatement();
         ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Adressen");
         rs.next();
         int count = rs.getInt(1);

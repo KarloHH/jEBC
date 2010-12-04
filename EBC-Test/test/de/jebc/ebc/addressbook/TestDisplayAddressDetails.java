@@ -9,8 +9,8 @@ import java.sql.Statement;
 import org.junit.Test;
 
 import de.jebc.ebc.InPin;
-import de.jebc.ebc.QueryInPin;
 import de.jebc.ebc.addressbook.activities.DisplayAddressDetails;
+import de.jebc.ebc.addressbook.data.ConnectionFactory;
 import de.jebc.ebc.addressbook.data.jdbc.JdbcExecuteDatasourceQuery;
 import de.jebc.ebc.addressbook.domain.AddressCategory;
 import de.jebc.ebc.addressbook.domain.addressdetails.Address;
@@ -26,17 +26,11 @@ public class TestDisplayAddressDetails {
         BaseAddressData data = new BaseAddressData(1, new AddressCategory(""),
                 "");
 
-        final Connection conn = prepareDatabase();
-        JdbcExecuteDatasourceQuery execute = new JdbcExecuteDatasourceQuery();
+        final ConnectionFactory conn = prepareDatabase();
+        JdbcExecuteDatasourceQuery execute = new JdbcExecuteDatasourceQuery(
+                conn);
 
         DisplayAddressDetails sut = new DisplayAddressDetails(execute);
-        sut.Connection().connect(new QueryInPin<Object, Connection>() {
-
-            @Override
-            public void receive(Object message, InPin<Connection> response) {
-                response.receive(conn);
-            }
-        });
         sut.result().connect(new InPin<Address>() {
 
             @Override
@@ -57,14 +51,21 @@ public class TestDisplayAddressDetails {
         assertEquals("Deutschland", result.getCountry());
     }
 
-    private Connection prepareDatabase() throws Exception {
+    private ConnectionFactory prepareDatabase() throws Exception {
         Class.forName("org.sqlite.JDBC");
-        Connection conn = DriverManager.getConnection("jdbc:sqlite::memory:");
+        final Connection conn = DriverManager
+                .getConnection("jdbc:sqlite::memory:");
         Statement stmt = conn.createStatement();
         stmt.executeUpdate("CREATE TABLE Adressen (ID INTEGER, Category TEXT, Name TEXT, GivenName TEXT,"
                 + "ZipCode TEXT, City TEXT, Street TEXT, Country TEXT);");
         stmt.executeUpdate("INSERT INTO Adressen VALUES (1, 'Büro', 'Name', 'Vorname',"
                 + "'20000', 'Hamburg', 'ABC-Straße 1', 'Deutschland')");
-        return conn;
+        return new ConnectionFactory() {
+
+            @Override
+            public Connection getConnection() {
+                return conn;
+            }
+        };
     }
 }

@@ -1,11 +1,8 @@
 package de.jebc.ebc.addressbook.activities;
 
-import java.sql.Connection;
-
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.OutTrigger;
-import de.jebc.ebc.QueryOutPin;
 import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasource;
 import de.jebc.ebc.addressbook.domain.addressdetails.Address;
 import de.jebc.ebc.addressbook.domain.savenewaddress.GenerateInsertCommand;
@@ -17,7 +14,6 @@ import de.jebc.ebc.impl.StopTrigger;
 
 public class SaveNewAddressData extends Board {
 
-    private final ExecuteDatasource dataSource;
     private GenerateInsertCommand generate;
     private StartTrigger<Address> start;
     private PinBroadcast<Address> broadcast;
@@ -25,7 +21,6 @@ public class SaveNewAddressData extends Board {
     private StopTrigger<Address> stop;
 
     public SaveNewAddressData(ExecuteDatasource dataSource) {
-        this.dataSource = dataSource;
         generate = new GenerateInsertCommand();
         createHelperParts();
         // wiring
@@ -56,10 +51,6 @@ public class SaveNewAddressData extends Board {
 
     public OutTrigger Completed() {
         return stop.Trigger();
-    }
-
-    public QueryOutPin<Object, Connection> Connection() {
-        return dataSource.Connection();
     }
 
     public OutPin<Address> Result() {

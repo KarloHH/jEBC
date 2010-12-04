@@ -1,10 +1,7 @@
 package de.jebc.ebc.addressbook.activities;
 
-import java.sql.Connection;
-
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
-import de.jebc.ebc.QueryOutPin;
 import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasource;
 import de.jebc.ebc.addressbook.domain.addressdetails.Address;
 import de.jebc.ebc.addressbook.domain.addressdetails.GenerateAddressDTO;
@@ -16,10 +13,8 @@ public class DisplayAddressDetails extends Board {
 
     private GenerateQueryForAddress query;
     private GenerateAddressDTO generate;
-    private final ExecuteDatasource datasource;
 
     public DisplayAddressDetails(ExecuteDatasource datasource) {
-        this.datasource = datasource;
         query = new GenerateQueryForAddress();
         generate = new GenerateAddressDTO();
 
@@ -35,7 +30,4 @@ public class DisplayAddressDetails extends Board {
         return generate.Result();
     }
 
-    public QueryOutPin<Object, Connection> Connection() {
-        return datasource.Connection();
-    }
 }
