@@ -21,12 +21,12 @@ import de.jebc.ebc.impl.Board;
 
 public class Main extends Board {
 
-    private static GuiBoard gui;
-    private static DisplayTreeOfAllAdresses displayTree;
-    private static DeleteCurrentAddress deleteCurrent;
-    private static SaveAddressData save;
-    private static SaveNewAddressData saveNew;
-    private static DisplayAddressDetails displayDetails;
+    private GuiBoard gui;
+    private DisplayTreeOfAllAdresses displayTree;
+    private DeleteCurrentAddress deleteCurrent;
+    private SaveAddressData save;
+    private SaveNewAddressData saveNew;
+    private DisplayAddressDetails displayDetails;
 
     /**
      * @param args
@@ -47,24 +47,13 @@ public class Main extends Board {
         });
     }
 
+
     protected void run() {
         displayTree.start().receive();
     }
 
     private void configure(MainWindow frame, String[] args) throws Exception {
-        MainController main = new MainController(frame);
-        DetailPanel detailPanel = new DetailPanel();
-        DetailsController details = new DetailsController(detailPanel);
-        AddressTreePanel tree = new AddressTreePanel();
-        frame.setSplitter(tree, detailPanel);
-        JdbcConnectionFactory connection = new JdbcConnectionFactory(
-                ConfigureConnection.Configure(args));
-        gui = new GuiBoard(details, main, tree);
-        displayTree = new DisplayTreeOfAllAdresses(getDatasource(connection));
-        deleteCurrent = new DeleteCurrentAddress(getDatasource(connection));
-        save = new SaveAddressData(getDatasource(connection));
-        saveNew = new SaveNewAddressData(getDatasource(connection));
-        displayDetails = new DisplayAddressDetails(getDatasource(connection));
+        createComponents(frame, args);
         // wire
         connect(deleteCurrent.tree(), gui.DisplayTree());
         connect(gui.Delete(), deleteCurrent.in());
@@ -76,6 +65,29 @@ public class Main extends Board {
         connect(saveNew.Completed(), displayTree.start());
         connect(displayDetails.result(), gui.Display());
         connect(gui.Select(), displayDetails.start());
+    }
+
+
+    protected void createComponents(MainWindow frame, String[] args)
+            throws Exception {
+        JdbcConnectionFactory connection = new JdbcConnectionFactory(
+                ConfigureConnection.Configure(args));
+        gui = createGuiBoard(frame);
+        displayTree = new DisplayTreeOfAllAdresses(getDatasource(connection));
+        deleteCurrent = new DeleteCurrentAddress(getDatasource(connection));
+        save = new SaveAddressData(getDatasource(connection));
+        saveNew = new SaveNewAddressData(getDatasource(connection));
+        displayDetails = new DisplayAddressDetails(getDatasource(connection));
+    }
+
+    protected GuiBoard createGuiBoard(MainWindow frame) {
+        MainController main = new MainController(frame);
+        DetailPanel detailPanel = new DetailPanel();
+        DetailsController details = new DetailsController(detailPanel);
+        AddressTreePanel tree = new AddressTreePanel();
+        frame.setSplitter(tree, detailPanel);
+        GuiBoard gui = new GuiBoard(details, main, tree);
+        return gui;
     }
 
     protected ExecuteDatasource getDatasource(ConnectionFactory connection) {
