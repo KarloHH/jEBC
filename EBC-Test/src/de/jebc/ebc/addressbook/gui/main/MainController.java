@@ -11,7 +11,7 @@ import de.jebc.ebc.impl.BroadcastOutTrigger;
 
 @SuppressWarnings("serial")
 public class MainController {
-    
+
     private class SaveAction extends AbstractAction {
 
         private final MainController mainController;
@@ -25,9 +25,9 @@ public class MainController {
         public void actionPerformed(ActionEvent arg0) {
             mainController.Save().send();
         }
-        
+
     }
-    
+
     private class ExitAction extends AbstractAction {
 
         private final MainController mainController;
@@ -41,9 +41,9 @@ public class MainController {
         public void actionPerformed(ActionEvent e) {
             mainController.exit();
         }
-        
+
     }
-    
+
     private class NewAction extends AbstractAction {
 
         private final MainController mainController;
@@ -57,9 +57,9 @@ public class MainController {
         public void actionPerformed(ActionEvent e) {
             mainController.New().send();
         }
-        
+
     }
-    
+
     private class DeleteAction extends AbstractAction {
 
         private final MainController mainController;
@@ -73,32 +73,39 @@ public class MainController {
         public void actionPerformed(ActionEvent e) {
             mainController.Delete().send();
         }
-        
+
     }
-    
+
     private OutTrigger savePin = new BroadcastOutTrigger();
     private OutTrigger newPin = new BroadcastOutTrigger();
     private OutTrigger deletePin = new BroadcastOutTrigger();
     private InPin<Boolean> changedPin = new InPin<Boolean>() {
-        
+
         @Override
         public void receive(Boolean message) {
             save.setEnabled(message);
         }
     };
     private InTrigger savedPin = new InTrigger() {
-        
+
         @Override
         public void receive() {
             save.setEnabled(false);
         }
     };
-    
+    private InPin<Boolean> addressSelectedPin = new InPin<Boolean>() {
+
+        @Override
+        public void receive(Boolean message) {
+            delete.setEnabled(message);
+        }
+    };
+
     private DeleteAction delete;
     private ExitAction exit;
     private NewAction neww;
     private SaveAction save;
-    
+
     public MainController(IMainWindow view) {
         delete = new DeleteAction(this);
         view.setDeleteAction(delete);
@@ -114,17 +121,17 @@ public class MainController {
     }
 
     public void exit() {
-        
+
     }
 
     public OutTrigger Save() {
         return savePin;
     }
-    
+
     public OutTrigger New() {
         return newPin;
     }
-    
+
     public OutTrigger Delete() {
         return deletePin;
     }
@@ -132,8 +139,12 @@ public class MainController {
     public InPin<Boolean> Changed() {
         return changedPin;
     }
-    
+
     public InTrigger Saved() {
         return savedPin;
+    }
+
+    public InPin<Boolean> AddressSelected() {
+        return addressSelectedPin;
     }
 }
