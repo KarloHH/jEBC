@@ -33,7 +33,7 @@ import de.jebc.logging.pin.LogBoardPin;
 import de.jebc.logging.pin.LogDebugPin;
 import de.jebc.logging.pin.LogInfoPin;
 
-public class Main extends Board {
+public class Main extends Board implements Runnable {
 
     private Logger log = LoggerFactory.getLogger(Main.class);
 
@@ -63,7 +63,7 @@ public class Main extends Board {
                     Main main = new Main();
                     main.configure(frame, args);
                     frame.setVisible(true);
-                    main.run();
+                    new Thread(main).start();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -71,7 +71,7 @@ public class Main extends Board {
         });
     }
 
-    protected void run() {
+    public void run() {
         log.info("Start Program");
         displayTree.Start().receive();
     }

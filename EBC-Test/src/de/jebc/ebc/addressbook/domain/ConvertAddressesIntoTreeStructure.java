@@ -17,6 +17,10 @@ public class ConvertAddressesIntoTreeStructure extends
     @Override
     protected void process(List<BaseAddressData> message) {
         TreeModel tree = convertListToTree(message);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+        }
         Result().send(tree);
     }
 
