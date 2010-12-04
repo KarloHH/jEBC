@@ -50,15 +50,26 @@ public class JdbcExecuteDatasourceQuery implements ExecuteDatasource {
             public void receive(Connection conn) {
                 String command = generateCommand(query);
                 ResultSet rs = null;
+                Statement stmt = null;
                 try {
-                    Statement stmt = conn.createStatement();
+                    stmt = conn.createStatement();
                     rs = stmt.executeQuery(command);
+                    Resultset result = new JdbcResultsetFacade(rs);
+                    ResultQuery().send(result);
                 } catch (SQLException e) {
                     // TODO exception handling
                     e.printStackTrace();
+                } finally {
+                    try {
+                        if (rs != null)
+                            rs.close();
+                        if (stmt != null)
+                            stmt.close();
+                    } catch (SQLException e2) {
+                        // TODO exception handling
+                        e2.printStackTrace();
+                    }
                 }
-                Resultset result = new JdbcResultsetFacade(rs);
-                ResultQuery().send(result);
             }
 
         });
@@ -71,19 +82,30 @@ public class JdbcExecuteDatasourceQuery implements ExecuteDatasource {
             public void receive(Connection conn) {
                 String command = generateCommand(query);
                 ResultSet rs = null;
+                Statement stmt = null;
                 int result = 0;
                 try {
-                    Statement stmt = conn.createStatement();
+                    stmt = conn.createStatement();
                     stmt.execute(command);
                     rs = stmt.getGeneratedKeys();
-                    while(rs.next()) {
+                    while (rs.next()) {
                         result = rs.getInt(1);
                     }
+                    ResultIdentity().send(result);
                 } catch (SQLException e) {
                     // TODO exception handling
                     e.printStackTrace();
+                } finally {
+                    try {
+                        if (rs != null)
+                            rs.close();
+                        if (stmt != null)
+                            stmt.close();
+                    } catch (SQLException e2) {
+                        // TODO exception handling
+                        e2.printStackTrace();
+                    }
                 }
-                ResultIdentity().send(result);
             }
 
         });
@@ -95,14 +117,23 @@ public class JdbcExecuteDatasourceQuery implements ExecuteDatasource {
             @Override
             public void receive(Connection conn) {
                 String command = generateCommand(query);
+                Statement stmt = null;
                 try {
-                    Statement stmt = conn.createStatement();
+                    stmt = conn.createStatement();
                     stmt.execute(command);
+                    CommandDone().send();
                 } catch (SQLException e) {
                     // TODO exception handling
                     e.printStackTrace();
+                } finally {
+                    try {
+                        if (stmt != null)
+                            stmt.close();
+                    } catch (SQLException e2) {
+                        // TODO exception handling
+                        e2.printStackTrace();
+                    }
                 }
-                CommandDone().send();
             }
 
         });
@@ -111,6 +142,7 @@ public class JdbcExecuteDatasourceQuery implements ExecuteDatasource {
     private String generateCommand(Query query) {
         return query.getCommand();
     }
+
     @Override
     public QueryOutPin<Object, Connection> Connection() {
         return connectionQuery;
