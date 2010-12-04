@@ -26,7 +26,7 @@ public class DisplayAddressDetails extends Board {
         return query.Start();
     }
 
-    public OutPin<Address> result() {
+    public OutPin<Address> Result() {
         return generate.Result();
     }
 

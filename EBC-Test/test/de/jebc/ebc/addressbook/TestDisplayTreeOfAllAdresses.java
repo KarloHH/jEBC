@@ -28,7 +28,7 @@ public class TestDisplayTreeOfAllAdresses {
 
         DisplayTreeOfAllAdresses sut = new DisplayTreeOfAllAdresses(execute);
 
-        sut.tree().connect(new InPin<TreeModel>() {
+        sut.Tree().connect(new InPin<TreeModel>() {
 
             @Override
             public void receive(TreeModel message) {
@@ -36,7 +36,7 @@ public class TestDisplayTreeOfAllAdresses {
             }
         });
 
-        sut.start().receive();
+        sut.Start().receive();
 
         assertNotNull(result);
     }

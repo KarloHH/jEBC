@@ -48,21 +48,21 @@ public class Main extends Board {
     }
 
     protected void run() {
-        displayTree.start().receive();
+        displayTree.Start().receive();
     }
 
     private void configure(MainWindow frame, String[] args) throws Exception {
         createComponents(frame, args);
         // wire
-        connect(deleteCurrent.Result(), displayTree.start());
+        connect(deleteCurrent.Result(), displayTree.Start());
         connect(gui.Delete(), deleteCurrent.Start());
-        connect(displayTree.tree(), gui.DisplayTree());
+        connect(displayTree.Tree(), gui.DisplayTree());
         connect(gui.Save(), save.Start());
         connect(save.Result(), gui.Saved());
         connect(gui.SaveNew(), saveNew.Start());
         connect(saveNew.Result(), gui.Display());
-        connect(saveNew.Completed(), displayTree.start());
-        connect(displayDetails.result(), gui.Display());
+        connect(saveNew.Completed(), displayTree.Start());
+        connect(displayDetails.Result(), gui.Display());
         connect(gui.Select(), displayDetails.start());
     }
 

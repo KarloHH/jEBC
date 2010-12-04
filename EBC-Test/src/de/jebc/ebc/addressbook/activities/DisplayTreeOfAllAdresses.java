@@ -21,11 +21,11 @@ public class DisplayTreeOfAllAdresses extends Board {
         connect(read.Result(), convert.Start());
     }
 
-    public InTrigger start() {
+    public InTrigger Start() {
         return read.Start();
     }
 
-    public OutPin<TreeModel> tree() {
+    public OutPin<TreeModel> Tree() {
         return convert.Result();
     }
 

@@ -31,7 +31,7 @@ public class TestDisplayAddressDetails {
                 conn);
 
         DisplayAddressDetails sut = new DisplayAddressDetails(execute);
-        sut.result().connect(new InPin<Address>() {
+        sut.Result().connect(new InPin<Address>() {
 
             @Override
             public void receive(Address message) {
