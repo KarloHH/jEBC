@@ -47,7 +47,6 @@ public class Main extends Board {
         });
     }
 
-
     protected void run() {
         displayTree.start().receive();
     }
@@ -55,8 +54,8 @@ public class Main extends Board {
     private void configure(MainWindow frame, String[] args) throws Exception {
         createComponents(frame, args);
         // wire
-        connect(deleteCurrent.tree(), gui.DisplayTree());
-        connect(gui.Delete(), deleteCurrent.in());
+        connect(deleteCurrent.Result(), displayTree.start());
+        connect(gui.Delete(), deleteCurrent.Start());
         connect(displayTree.tree(), gui.DisplayTree());
         connect(gui.Save(), save.Start());
         connect(save.Result(), gui.Saved());
@@ -66,7 +65,6 @@ public class Main extends Board {
         connect(displayDetails.result(), gui.Display());
         connect(gui.Select(), displayDetails.start());
     }
-
 
     protected void createComponents(MainWindow frame, String[] args)
             throws Exception {

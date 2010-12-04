@@ -10,11 +10,11 @@ import java.sql.Statement;
 import org.junit.Test;
 
 import de.jebc.ebc.InTrigger;
+import de.jebc.ebc.addressbook.activities.DeleteCurrentAddress;
 import de.jebc.ebc.addressbook.data.ConnectionFactory;
 import de.jebc.ebc.addressbook.data.jdbc.JdbcExecuteDatasourceQuery;
 import de.jebc.ebc.addressbook.domain.AddressCategory;
 import de.jebc.ebc.addressbook.domain.baseadresses.BaseAddressData;
-import de.jebc.ebc.addressbook.domain.deleteaddress.DeleteAddressFromDatasource;
 
 public class TestDeleteAddressFromDatasource {
 
@@ -30,7 +30,7 @@ public class TestDeleteAddressFromDatasource {
                 new AddressCategory(""), "");
         done = false;
 
-        DeleteAddressFromDatasource sut = new DeleteAddressFromDatasource(new JdbcExecuteDatasourceQuery(conn));
+        DeleteCurrentAddress sut = new DeleteCurrentAddress(new JdbcExecuteDatasourceQuery(conn));
 
         sut.Result().connect(new InTrigger() {
 

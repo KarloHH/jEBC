@@ -1,31 +1,29 @@
 package de.jebc.ebc.addressbook.activities;
 
-import javax.swing.tree.TreeModel;
-
 import de.jebc.ebc.InPin;
-import de.jebc.ebc.OutPin;
+import de.jebc.ebc.OutTrigger;
 import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasource;
 import de.jebc.ebc.addressbook.domain.baseadresses.BaseAddressData;
-import de.jebc.ebc.addressbook.domain.deleteaddress.DeleteAddressFromDatasource;
+import de.jebc.ebc.addressbook.domain.deleteaddress.GenerateDeleteCommand;
 import de.jebc.ebc.impl.Board;
 
 public class DeleteCurrentAddress extends Board {
 
-    private DisplayTreeOfAllAdresses display;
-    private DeleteAddressFromDatasource delete;
+    private GenerateDeleteCommand generate;
+    private final ExecuteDatasource query;
 
     public DeleteCurrentAddress(ExecuteDatasource query) {
-        delete = new DeleteAddressFromDatasource(query);
-        display = new DisplayTreeOfAllAdresses(query);
-
-        connect(delete.Result(), display.start());
+        this.query = query;
+        generate = new GenerateDeleteCommand();
+        connect(generate.Result(), query.StartCommand());
     }
 
-    public InPin<BaseAddressData> in() {
-        return delete.Start();
+    public OutTrigger Result() {
+        return query.CommandDone();
     }
 
-    public OutPin<TreeModel> tree() {
-        return display.tree();
+    public InPin<BaseAddressData> Start() {
+        return generate.Start();
     }
+
 }
