@@ -1,7 +1,7 @@
 package de.jebc.ebc.addressbook.activities;
 
 import de.jebc.ebc.InPin;
-import de.jebc.ebc.OutTrigger;
+import de.jebc.ebc.OutPin;
 import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasource;
 import de.jebc.ebc.addressbook.domain.addressdetails.Address;
 import de.jebc.ebc.addressbook.domain.saveaddress.GenerateUpdateQuery;
@@ -23,7 +23,7 @@ public class SaveAddressData extends Board {
         return generate.Start();
     }
 
-    public OutTrigger Result() {
+    public OutPin<Void> Result() {
         return datasourceQuery.CommandDone();
     }
 

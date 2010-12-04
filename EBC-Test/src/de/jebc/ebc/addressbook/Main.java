@@ -73,7 +73,7 @@ public class Main extends Board implements Runnable {
 
     public void run() {
         log.info("Start Program");
-        displayTree.Start().receive();
+        displayTree.Start().receive(null);
     }
 
     private void configure(MainWindow frame, String[] args) throws Exception {

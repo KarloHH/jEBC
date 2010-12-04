@@ -3,7 +3,6 @@ package de.jebc.ebc.addressbook.gui;
 import javax.swing.tree.TreeModel;
 
 import de.jebc.ebc.InPin;
-import de.jebc.ebc.InTrigger;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.addressbook.domain.addressdetails.Address;
 import de.jebc.ebc.addressbook.domain.baseadresses.BaseAddressData;
@@ -62,7 +61,7 @@ public class GuiBoard extends Board {
         return details.Display();
     }
 
-    public InTrigger Saved() {
+    public InPin<Void> Saved() {
         return broadcast.In();
     }
 }

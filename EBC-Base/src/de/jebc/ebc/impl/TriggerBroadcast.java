@@ -1,23 +1,23 @@
 package de.jebc.ebc.impl;
 
-import de.jebc.ebc.InTrigger;
-import de.jebc.ebc.OutTrigger;
+import de.jebc.ebc.InPin;
+import de.jebc.ebc.OutPin;
 
 public class TriggerBroadcast {
-    private InTrigger inPin = new InTrigger() {
+    private InPin<Void> inPin = new InPin<Void>() {
 
         @Override
-        public void receive() {
-            outPin.send();
+        public void receive(Void v) {
+            outPin.send(v);
         }
     };
-    private OutTrigger outPin = new BroadcastOutTrigger();
+    private OutPin<Void> outPin = new BroadcastOutPin<Void>();
 
-    public InTrigger In() {
+    public InPin<Void> In() {
         return inPin;
     }
 
-    public OutTrigger Out() {
+    public OutPin<Void> Out() {
         return outPin;
     }
 

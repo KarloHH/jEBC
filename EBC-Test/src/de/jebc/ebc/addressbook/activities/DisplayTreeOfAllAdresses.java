@@ -2,7 +2,7 @@ package de.jebc.ebc.addressbook.activities;
 
 import javax.swing.tree.TreeModel;
 
-import de.jebc.ebc.InTrigger;
+import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasource;
 import de.jebc.ebc.addressbook.domain.ConvertAddressesIntoTreeStructure;
@@ -25,7 +25,7 @@ public class DisplayTreeOfAllAdresses extends Board {
         connect(convert.Result(), switchToForeground.Start());
     }
 
-    public InTrigger Start() {
+    public InPin<Void> Start() {
         return read.Start();
     }
 

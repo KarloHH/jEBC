@@ -6,7 +6,6 @@ import javax.swing.JPanel;
 import javax.swing.JTree;
 
 import de.jebc.ebc.InPin;
-import de.jebc.ebc.InTrigger;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.addressbook.domain.baseadresses.BaseAddressData;
 import de.jebc.ebc.impl.SingleOutPin;
@@ -18,10 +17,10 @@ import javax.swing.tree.TreeModel;
 @SuppressWarnings("serial")
 public class AddressTreePanel extends JPanel {
 
-    private InTrigger deleteCurrentPin = new InTrigger() {
+    private InPin<Void> deleteCurrentPin = new InPin<Void>() {
 
         @Override
-        public void receive() {
+        public void receive(Void v) {
             if (selectedNode != null) {
                 Object userObject = selectedNode.getUserObject();
                 if (userObject instanceof BaseAddressData) {
@@ -33,10 +32,10 @@ public class AddressTreePanel extends JPanel {
     };
     private OutPin<DefaultMutableTreeNode> selectPin = new SingleOutPin<DefaultMutableTreeNode>();
     private OutPin<BaseAddressData> deletePin = new SingleOutPin<BaseAddressData>();
-    private InTrigger savedPin = new InTrigger() {
+    private InPin<Void> savedPin = new InPin<Void>() {
 
         @Override
-        public void receive() {
+        public void receive(Void v) {
             setChanged(false);
         }
     };
@@ -86,11 +85,11 @@ public class AddressTreePanel extends JPanel {
         // TODO ???
     }
 
-    public InTrigger DeleteCurrent() {
+    public InPin<Void> DeleteCurrent() {
         return deleteCurrentPin;
     }
 
-    public InTrigger Saved() {
+    public InPin<Void> Saved() {
         return savedPin;
     }
 

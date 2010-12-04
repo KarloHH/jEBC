@@ -2,7 +2,6 @@ package de.jebc.ebc.addressbook.data.jdbc;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
-import de.jebc.ebc.OutTrigger;
 import de.jebc.ebc.addressbook.data.Query;
 import de.jebc.ebc.addressbook.data.Resultset;
 
@@ -14,7 +13,7 @@ public interface ExecuteDatasource {
     
     public abstract InPin<Query> StartCommand();
     
-    public abstract OutTrigger CommandDone();
+    public abstract OutPin<Void> CommandDone();
 
     public abstract InPin<Query> StartIdentity();
 

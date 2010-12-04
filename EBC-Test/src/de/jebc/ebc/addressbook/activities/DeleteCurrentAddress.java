@@ -1,7 +1,7 @@
 package de.jebc.ebc.addressbook.activities;
 
 import de.jebc.ebc.InPin;
-import de.jebc.ebc.OutTrigger;
+import de.jebc.ebc.OutPin;
 import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasource;
 import de.jebc.ebc.addressbook.domain.baseadresses.BaseAddressData;
 import de.jebc.ebc.addressbook.domain.deleteaddress.GenerateDeleteCommand;
@@ -18,7 +18,7 @@ public class DeleteCurrentAddress extends Board {
         connect(generate.Result(), query.StartCommand());
     }
 
-    public OutTrigger Result() {
+    public OutPin<Void> Result() {
         return query.CommandDone();
     }
 

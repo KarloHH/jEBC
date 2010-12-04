@@ -5,9 +5,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import de.jebc.ebc.InPin;
-import de.jebc.ebc.InTrigger;
-import de.jebc.ebc.OutTrigger;
-import de.jebc.ebc.impl.BroadcastOutTrigger;
+import de.jebc.ebc.OutPin;
+import de.jebc.ebc.impl.BroadcastOutPin;
 
 @SuppressWarnings("serial")
 public class MainController {
@@ -23,7 +22,7 @@ public class MainController {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
-            mainController.Save().send();
+            mainController.Save().send(null);
         }
 
     }
@@ -55,7 +54,7 @@ public class MainController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            mainController.New().send();
+            mainController.New().send(null);
         }
 
     }
@@ -71,14 +70,14 @@ public class MainController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            mainController.Delete().send();
+            mainController.Delete().send(null);
         }
 
     }
 
-    private OutTrigger savePin = new BroadcastOutTrigger();
-    private OutTrigger newPin = new BroadcastOutTrigger();
-    private OutTrigger deletePin = new BroadcastOutTrigger();
+    private OutPin<Void> savePin = new BroadcastOutPin<Void>();
+    private OutPin<Void> newPin = new BroadcastOutPin<Void>();
+    private OutPin<Void> deletePin = new BroadcastOutPin<Void>();
     private InPin<Boolean> changedPin = new InPin<Boolean>() {
 
         @Override
@@ -86,10 +85,10 @@ public class MainController {
             save.setEnabled(message);
         }
     };
-    private InTrigger savedPin = new InTrigger() {
+    private InPin<Void> savedPin = new InPin<Void>() {
 
         @Override
-        public void receive() {
+        public void receive(Void v) {
             save.setEnabled(false);
         }
     };
@@ -124,15 +123,15 @@ public class MainController {
 
     }
 
-    public OutTrigger Save() {
+    public OutPin<Void> Save() {
         return savePin;
     }
 
-    public OutTrigger New() {
+    public OutPin<Void> New() {
         return newPin;
     }
 
-    public OutTrigger Delete() {
+    public OutPin<Void> Delete() {
         return deletePin;
     }
 
@@ -140,7 +139,7 @@ public class MainController {
         return changedPin;
     }
 
-    public InTrigger Saved() {
+    public InPin<Void> Saved() {
         return savedPin;
     }
 

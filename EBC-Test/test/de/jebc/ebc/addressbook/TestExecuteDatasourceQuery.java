@@ -10,7 +10,6 @@ import java.sql.Statement;
 import org.junit.Test;
 
 import de.jebc.ebc.InPin;
-import de.jebc.ebc.InTrigger;
 import de.jebc.ebc.addressbook.data.ConnectionFactory;
 import de.jebc.ebc.addressbook.data.DataException;
 import de.jebc.ebc.addressbook.data.Query;
@@ -59,10 +58,10 @@ public class TestExecuteDatasourceQuery {
         ExecuteDatasource sut = new JdbcExecuteDatasourceQuery(conn);
         done = false;
 
-        sut.CommandDone().connect(new InTrigger() {
+        sut.CommandDone().connect(new InPin<Void>() {
 
             @Override
-            public void receive() {
+            public void receive(Void v) {
                 done = true;
             }
         });

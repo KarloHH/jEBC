@@ -36,7 +36,7 @@ public class TestDisplayTreeOfAllAdresses {
             }
         });
 
-        sut.Start().receive();
+        sut.Start().receive(null);
 
         assertNotNull(result);
     }

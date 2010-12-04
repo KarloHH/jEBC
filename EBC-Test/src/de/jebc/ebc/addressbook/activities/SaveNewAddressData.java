@@ -2,7 +2,6 @@ package de.jebc.ebc.addressbook.activities;
 
 import de.jebc.ebc.InPin;
 import de.jebc.ebc.OutPin;
-import de.jebc.ebc.OutTrigger;
 import de.jebc.ebc.addressbook.data.jdbc.ExecuteDatasource;
 import de.jebc.ebc.addressbook.domain.addressdetails.Address;
 import de.jebc.ebc.addressbook.domain.savenewaddress.GenerateInsertCommand;
@@ -49,7 +48,7 @@ public class SaveNewAddressData extends Board {
         stop = new StopTrigger<Address>();
     }
 
-    public OutTrigger Completed() {
+    public OutPin<Void> Completed() {
         return stop.Trigger();
     }
 

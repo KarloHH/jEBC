@@ -25,7 +25,7 @@ public class TestGenerateQueryForAllBaseAddresses {
                 queried = true;
             }
         });
-        sut.Start().receive();
+        sut.Start().receive(null);
 
         assertTrue(queried);
     }

@@ -11,7 +11,7 @@ import java.sql.Statement;
 
 import org.junit.Test;
 
-import de.jebc.ebc.InTrigger;
+import de.jebc.ebc.InPin;
 import de.jebc.ebc.addressbook.activities.SaveAddressData;
 import de.jebc.ebc.addressbook.data.ConnectionFactory;
 import de.jebc.ebc.addressbook.data.jdbc.JdbcExecuteDatasourceQuery;
@@ -34,10 +34,10 @@ public class TestSaveAddressData {
         SaveAddressData sut = new SaveAddressData(
                 new JdbcExecuteDatasourceQuery(conn));
 
-        sut.Result().connect(new InTrigger() {
+        sut.Result().connect(new InPin<Void>() {
 
             @Override
-            public void receive() {
+            public void receive(Void v) {
                 done = true;
             }
         });

@@ -1,7 +1,6 @@
 package de.jebc.ebc.impl;
 
 import de.jebc.ebc.InPin;
-import de.jebc.ebc.InTrigger;
 import de.jebc.ebc.OutPin;
 
 public abstract class Joiner<TInput1, TInput2, TOutput> {
@@ -25,10 +24,10 @@ public abstract class Joiner<TInput1, TInput2, TOutput> {
                 send();
         }
     };
-    private InTrigger resetPin = new InTrigger() {
+    private InPin<Void>resetPin = new InPin<Void>() {
         
         @Override
-        public void receive() {
+        public void receive(Void v) {
             data1 = null;
             data2 = null;
         }
@@ -55,7 +54,7 @@ public abstract class Joiner<TInput1, TInput2, TOutput> {
         return outPin;
     }
     
-    public InTrigger Reset() {
+    public InPin<Void> Reset() {
         return resetPin;
     }
 }

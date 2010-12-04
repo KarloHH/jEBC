@@ -4,7 +4,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import de.jebc.ebc.InPin;
-import de.jebc.ebc.InTrigger;
 import de.jebc.ebc.OutPin;
 import de.jebc.ebc.addressbook.domain.addressdetails.Address;
 import de.jebc.ebc.impl.SingleOutPin;
@@ -12,10 +11,10 @@ import de.jebc.ebc.impl.SingleOutPin;
 public class DetailsController implements Observer {
 
     private final IDetailsView view;
-    private InTrigger savedPin = new InTrigger() {
+    private InPin<Void> savedPin = new InPin<Void>() {
 
         @Override
-        public void receive() {
+        public void receive(Void v) {
             // TODO notwendig?
         }
     };
@@ -28,10 +27,10 @@ public class DetailsController implements Observer {
     };
     private OutPin<Address> updatePin = new SingleOutPin<Address>();
     private OutPin<Address> saveNewPin = new SingleOutPin<Address>();
-    private InTrigger savePin = new InTrigger() {
+    private InPin<Void> savePin = new InPin<Void>() {
 
         @Override
-        public void receive() {
+        public void receive(Void v) {
             Address address = view.getAddress();
             if (address.getId() <= 0) {
                 SaveNew().send(address);
@@ -40,10 +39,10 @@ public class DetailsController implements Observer {
             }
         }
     };
-    private InTrigger newPin = new InTrigger() {
+    private InPin<Void> newPin = new InPin<Void>() {
         
         @Override
-        public void receive() {
+        public void receive(Void v) {
             Address address = new Address();
             view.setAddress(address);
         }
@@ -62,7 +61,7 @@ public class DetailsController implements Observer {
         return view.Changed();
     }
 
-    public InTrigger Saved() {
+    public InPin<Void> Saved() {
         return savedPin;
     }
 
@@ -78,11 +77,11 @@ public class DetailsController implements Observer {
         return saveNewPin;
     }
 
-    public InTrigger Save() {
+    public InPin<Void> Save() {
         return savePin;
     }
 
-    public InTrigger New() {
+    public InPin<Void> New() {
         return newPin;
     }
 
